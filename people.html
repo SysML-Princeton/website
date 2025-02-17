@@ -19,9 +19,11 @@
     <style type="text/css">
       .smlinks {
         color: black;
+        text-decoration: none;  /* removes the underline */
       }
       .smlinks:hover {
         color: rgb(7, 107, 255);
+        text-decoration: none;  /* removes the underline */
       }
     </style>
 
@@ -36,19 +38,6 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff"> -->
     
-    <!-- Functionality for searching papers -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function () {
-          $("#search").on("input", function () {
-              let query = $(this).val().toLowerCase();
-              $(".paper-item").each(function () {
-                  let text = $(this).text().toLowerCase();
-                  $(this).closest("li").toggle(text.includes(query));
-              });
-          });
-      });
-    </script>
   </head>
 
   <body>
@@ -83,7 +72,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-sm-12">
-            <h2 class="jumbotron-heading">People of SAIL@Priceton</h2>
+            <h2 class="jumbotron-heading">People of SAIL@Princeton</h2>
             <p class="lead">TODO: write a sentence or two to describe this group of people. Something like: SAIL@Princeton has students and faculties across departments, doing research across the whole stack</p>
           </div>
         </div>
@@ -97,34 +86,39 @@
           <h2>Faculties</h2>
           <div class="row">
             <div class="col-lg-3 d-flex flex-column align-items-center">
+              <a href="https://www.cs.princeton.edu/~ravian/" target="_blank" class="smlinks text-center">
                 <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
                 <h5 class="fw-normal" id="ravi-netravali">Ravi Netravali</h5>
-                <p>Associate professor, COS</p>
+              </a>
+              <p>Associate professor, COS</p>
             </div>
             <div class="col-lg-3 d-flex flex-column align-items-center">
+              <a href="https://tridao.me/" target="_blank" class="smlinks text-center">
                 <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/tri-dao.jpg">
                 <h5 class="fw-normal" id="tri-dao">Tri Dao</h5>
-                <p>Assistant professor, COS</p>
+              </a>
+              <p>Assistant professor, COS</p>
             </div>
             <div class="col-lg-3 d-flex flex-column align-items-center">
-                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/kai-li.jpeg">
+              <a href="https://www.cs.princeton.edu/~li/" target="_blank" class="smlinks text-center">
+                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/kai-li.jpg">
                 <h5 class="fw-normal" id="kai-li">Kai Li</h5>
-                <p>Professor, COS</p>
+              </a>
+              <p>Professor, COS</p>
             </div>
             <div class="col-lg-3 d-flex flex-column align-items-center">
-                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
-                <h5 class="fw-normal" id="ravi-netravali">Ravi Netravali</h5>
-                <p>Associate professor, COS</p>
+              <a href="https://www.cs.princeton.edu/~wlloyd/" target="_blank" class="smlinks text-center">
+                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/wyatt-lloyd.jpg">
+                <h5 class="fw-normal" id="wyatt-lloyd">Wyatt Lloyd</h5>
+              </a>
+              <p>Associate professor, COS</p>
             </div>
             <div class="col-lg-3 d-flex flex-column align-items-center">
-                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
-                <h5 class="fw-normal" id="ravi-netravali">Ravi Netravali</h5>
-                <p>Associate professor, COS</p>
-            </div>
-            <div class="col-lg-3 d-flex flex-column align-items-center">
-                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
-                <h5 class="fw-normal" id="ravi-netravali">Ravi Netravali</h5>
-                <p>Associate professor, COS</p>
+              <a href="https://www.cs.princeton.edu/~danqic/" target="_blank" class="smlinks text-center">
+                <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/danqi-chen.jpg">
+                <h5 class="fw-normal" id="danqi-chen">Danqi Chen</h5>
+              </a>
+              <p>Assistant professor, COS</p>
             </div>
           </div>
         </div>
@@ -138,28 +132,28 @@
             <h2>Students</h2>
             <div class="row">
               <div class="col-lg-2 d-flex flex-column align-items-center">
-                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/rui-pan.jpg">
-                  <h5 class="fw-normal" id="rui-pan">Rui Pan</h5>
+                <a href="https://neilagarwal.com/" target="_blank" class="smlinks text-center">
+                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/neil-agarwal.jpg">
+                  <h5 class="fw-normal" id="neil-agarwal">Neil Agarwal</h5>
+                </a>
               </div>
               <div class="col-lg-2 d-flex flex-column align-items-center">
-                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/yinwei-dai.jpg">
-                  <h5 class="fw-normal" id="yinwei-dai">Yinwei Dai</h5>
-              </div>
-              <div class="col-lg-2 d-flex flex-column align-items-center">
+                <a href="https://michaeldwong.github.io/" target="_blank" class="smlinks text-center">
                   <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/mike-wong.jpg">
                   <h5 class="fw-normal" id="mike-wong">Mike Wong</h5>
+                </a>
               </div>
               <div class="col-lg-2 d-flex flex-column align-items-center">
-                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
-                  <h5 class="fw-normal" id="rui-pan">Ravi Netravali</h5>
+                <a href="https://ruipan.xyz/" target="_blank" class="smlinks text-center">
+                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/rui-pan.jpg">
+                  <h5 class="fw-normal" id="rui-pan">Rui Pan</h5>
+                </a>
               </div>
               <div class="col-lg-2 d-flex flex-column align-items-center">
-                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
-                  <h5 class="fw-normal" id="rui-pan">Ravi Netravali</h5>
-              </div>
-              <div class="col-lg-2 d-flex flex-column align-items-center">
-                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/ravi-netravali.jpg">
-                  <h5 class="fw-normal" id="rui-pan">Ravi Netravali</h5>
+                <a href="http://yinwei-dai.com/" target="_blank" class="smlinks text-center">
+                  <img class="bd-placeholder-img rounded-circle" width="120" height="120" src="images/photos/yinwei-dai.png">
+                  <h5 class="fw-normal" id="yinwei-dai">Yinwei Dai</h5>
+                </a>
               </div>
             </div>
           </div>
