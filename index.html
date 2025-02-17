@@ -40,6 +40,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {
+          // Function to get URL parameters
+          function getQueryParam(name) {
+              let urlParams = new URLSearchParams(window.location.search);
+              return urlParams.get(name) || "";
+          }
+    
+          // Populate search bar if "search" parameter exists
+          let searchQuery = getQueryParam("search");
+          $("#search").val(searchQuery).trigger("input"); // Fill and trigger search
+    
+          // Search functionality
           $("#search").on("input", function () {
               let query = $(this).val().toLowerCase();
               $(".paper-item").each(function () {
@@ -112,7 +123,6 @@
       <div class="row">
         <div class="col-sm-12">
           <h2 style="margin-right: 10px;" id="projects">Directions</h2>
-          <p>TODO: ideally, each direction will have a button that brings us to the publications page with the keyword in the search bar</p>
           <div class="row row-cols-1 row-cols-md-2 g-4">
             <div class="col">
               <div class="card">
@@ -120,10 +130,13 @@
                   <h5 class="card-title">Systems for Efficient ML Inference</h5>
                   <p class="card-text">Early exit ahh</p>
                 </div>
-                <div class="card-footer">
-                  <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
-                  <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
-                  <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <div>
+                      <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
+                      <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
+                      <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                  </div>
+                  <a href="publications.html?search=ML%20for%20Systems" class="btn btn-outline-primary">Publications</a>
                 </div>
               </div>
             </div>
@@ -133,10 +146,13 @@
                   <h5 class="card-title">Full-Stack Innovations on Novel Model Architectures</h5>
                   <p class="card-text">State Space Models (e.g., Mamba), and system support for them</p>
                 </div>
-                <div class="card-footer">
-                  <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
-                  <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
-                  <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <div>
+                      <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
+                      <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
+                      <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                  </div>
+                  <a href="publications.html?search=State%20Space%20Models" class="btn btn-outline-primary">Publications</a>
                 </div>
               </div>
             </div>
@@ -146,10 +162,13 @@
                   <h5 class="card-title">Compound AI Systems</h5>
                   <p class="card-text">Agents, RAG, blah blah blah</p>
                 </div>
-                <div class="card-footer">
-                  <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
-                  <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
-                  <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <div>
+                      <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
+                      <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
+                      <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                  </div>
+                  <a href="publications.html?search=ML%20for%20Systems" class="btn btn-outline-primary">Publications</a>
                 </div>
               </div>
             </div>
@@ -159,10 +178,13 @@
                   <h5 class="card-title">ML for Systems</h5>
                   <p class="card-text">Caching, resource management, network protocol design.</p>
                 </div>
-                <div class="card-footer">
-                  <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
-                  <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
-                  <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <div>
+                      <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
+                      <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
+                      <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                  </div>
+                  <a href="publications.html?search=ML%20for%20Systems" class="btn btn-outline-primary">Publications</a>
                 </div>
               </div>
             </div>
@@ -172,10 +194,13 @@
                   <h5 class="card-title">Card title</h5>
                   <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 </div>
-                <div class="card-footer">
-                  <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
-                  <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
-                  <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <div>
+                      <a href="people.html#ravi-netravali"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/ravi-netravali.jpg" alt="Ravi Netravali"/></a>
+                      <a href="people.html#tri-dao"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/tri-dao.jpg" alt="Tri Dao"/></a>
+                      <a href="people.html#rui-pan"><img class="img-circle rounded-circle" width="30" height="30" src="images/photos/rui-pan.jpg" alt="Rui Pan"/></a>
+                  </div>
+                  <a href="publications.html?search=ML%20for%20Systems" class="btn btn-outline-primary">Publications</a>
                 </div>
               </div>
             </div>
@@ -188,17 +213,7 @@
     <div class="jumbotron text-center" style="margin-bottom:0">
       <div class="row">
         <div class="col-sm-12">
-          <!-- Fake anchor, otherwise the fixed navbar on the top would cover the title -->
-          <a id="contacts" style=" position: relative;top: -60px;display: block;height: 0;overflow: hidden;"></a>
-          <h2>Contacts</h2>
-          <p>ruipan at princeton dot edu </p>
-          <!-- <a href="mailto:ruipan@princeton.edu" class="smlinks"><i class="fas fa-envelope-square fa-2x"></i></a> -->
-          <a href="https://www.linkedin.com/in/ruipeterpan/"  class="smlinks" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
-          <a href="https://github.com/ruipeterpan" class="smlinks" target="_blank"><i class="fab fa-github-square fa-2x"></i></a>
-          <a href="https://twitter.com/ruipeterpan" class="smlinks" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
-          <a href="https://www.youtube.com/@ruipeterpan" class="smlinks" target="_blank"><i class="fab fa-youtube-square fa-2x"></i></a>
-          <a href="https://scholar.google.com/citations?hl=en&user=RPP-4BEAAAAJ" class="smlinks" target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
-          <a href="calendar.html" class="smlinks" target="_blank"><i class="fas fa-calendar-alt fa-2x"></i></i></i></a>
+          <a href="https://github.com/SysML-Princeton" class="smlinks" target="_blank"><i class="fab fa-github-square fa-2x"></i></a>
         </div>
       </div>
       <div class="row">

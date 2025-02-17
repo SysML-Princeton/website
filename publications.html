@@ -40,12 +40,31 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {
-          $("#search").on("input", function () {
-              let query = $(this).val().toLowerCase();
+          // Function to get URL parameters
+          function getQueryParam(name) {
+              let urlParams = new URLSearchParams(window.location.search);
+              return urlParams.get(name) || "";
+          }
+    
+          // Function to perform search
+          function filterPapers(query) {
+              query = query.toLowerCase();
               $(".paper-item").each(function () {
                   let text = $(this).text().toLowerCase();
                   $(this).closest("li").toggle(text.includes(query));
               });
+          }
+    
+          // Populate search bar and apply filter if "search" parameter exists
+          let searchQuery = getQueryParam("search");
+          if (searchQuery) {
+              $("#search").val(searchQuery);
+              filterPapers(searchQuery); // Directly apply the filter
+          }
+    
+          // Attach event listener for manual searches
+          $("#search").on("input", function () {
+              filterPapers($(this).val());
           });
       });
     </script>
@@ -130,7 +149,6 @@
                     <a href="https://mlsys.org/Conferences/2025" target="_blank">MLSys 2025</a><br>
                     <p class="badge badge-secondary">Efficient Inference</p>
                     <p class="badge badge-secondary">State Space Models</p>
-                    <p class="badge badge-secondary">Prefix Caching</p>
                     <br>
                     <a href="publications/arxiv24_marconi.pdf" target="_blank"><button type="button" class="btn btn-outline-primary btn-sm">PDF</button></a>
                     <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marconi-abstract" role="button" aria-expanded="false" aria-controls="marconi-abstract">Abstract</a>
