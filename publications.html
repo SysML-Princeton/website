@@ -307,6 +307,26 @@
           <h3>2023</h3>
           <ul>
             <li class="paper-item">
+              <h5>Mamba: Linear-Time Sequence Modeling with Selective State Spaces</h5> 
+              Albert Gu*, Tri Dao* <br>
+              COLM 2023<br>
+              <span class="badge badge-secondary">State Space Models</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2312.00752" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#mamba-abstract" role="button" aria-expanded="false" aria-controls="mamba-abstract">Abstract</a>
+                <a href="https://github.com/state-spaces/mamba/" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
+                </a>
+              </div>
+              <div class="collapse" id="mamba-abstract">
+                <div class="card card-body">
+                  Foundation models, now powering most of the exciting applications in deep learning, are almost universally based on the Transformer architecture and its core attention module. Many subquadratic-time architectures such as linear attention, gated convolution and recurrent models, and structured state space models (SSMs) have been developed to address Transformers' computational inefficiency on long sequences, but they have not performed as well as attention on important modalities such as language. We identify that a key weakness of such models is their inability to perform content-based reasoning, and make several improvements. First, simply letting the SSM parameters be functions of the input addresses their weakness with discrete modalities, allowing the model to selectively propagate or forget information along the sequence length dimension depending on the current token. Second, even though this change prevents the use of efficient convolutions, we design a hardware-aware parallel algorithm in recurrent mode. We integrate these selective SSMs into a simplified end-to-end neural network architecture without attention or even MLP blocks (Mamba). Mamba enjoys fast inference (5× higher throughput than Transformers) and linear scaling in sequence length, and its performance improves on real data up to million-length sequences. As a general sequence model backbone, Mamba achieves state-of-the-art performance across several modalities such as language, audio, and genomics. On language modeling, our Mamba-3B model outperforms Transformers of the same size and matches Transformers twice its size, both in pretraining and downstream evaluation.
+                </div>
+              </div>
+            </li>
+            <li class="paper-item">
               <h5>Shockwave: Fair and Efficient Cluster Scheduling for Dynamic Adaptation in Machine Learning</h5> 
               Pengfei Zheng, Rui Pan, Tarannum Khan, Shivaram Venkataraman, Aditya Akella <br>
               NSDI 2023<br>
@@ -323,14 +343,14 @@
               <div class="collapse" id="shockwave-abstract">
                 <div class="card card-body">
                   Dynamic adaptation has become an essential technique in accelerating distributed machine learning (ML) training: 
-                    Recent studies have shown that dynamically adjusting model structure (e.g., lottery ticket hypothesis) or hyperparameters (e.g., batch size) 
-                    can significantly accelerate training without sacrificing accuracy. However, existing ML cluster schedulers are not designed to handle dynamic adaptation. 
-                    We show that existing schemes fail to provide fairness and degrade system efficiency when the training throughput changes over time under dynamic adaptation. 
-                    We design Shockwave, a scheduler with future planning that builds on two key ideas. 
-                    First, Shockwave extends classic market theory from static settings to dynamic settings to co-optimize efficiency and fairness. 
-                    Second, Shockwave utilizes stochastic dynamic programming to handle uncertain, dynamic throughput. 
-                    We build a system for Shockwave and validate its performance with both trace-driven simulation and cluster experiments. 
-                    Results show that for traces of ML jobs with dynamic adaptation, Shockwave improves makespan by 1.3× and fairness by 2× when compared with existing fair scheduling schemes.
+                  Recent studies have shown that dynamically adjusting model structure (e.g., lottery ticket hypothesis) or hyperparameters (e.g., batch size) 
+                  can significantly accelerate training without sacrificing accuracy. However, existing ML cluster schedulers are not designed to handle dynamic adaptation. 
+                  We show that existing schemes fail to provide fairness and degrade system efficiency when the training throughput changes over time under dynamic adaptation. 
+                  We design Shockwave, a scheduler with future planning that builds on two key ideas. 
+                  First, Shockwave extends classic market theory from static settings to dynamic settings to co-optimize efficiency and fairness. 
+                  Second, Shockwave utilizes stochastic dynamic programming to handle uncertain, dynamic throughput. 
+                  We build a system for Shockwave and validate its performance with both trace-driven simulation and cluster experiments. 
+                  Results show that for traces of ML jobs with dynamic adaptation, Shockwave improves makespan by 1.3× and fairness by 2× when compared with existing fair scheduling schemes.
                 </div>
               </div>
             </li>
