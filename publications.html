@@ -78,7 +78,7 @@
     <!-- TODO(ruipan): figure out how to align the nav items to the right rather than the left -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top navbar-custom" style="background-color: #f58025">
         <a class="navbar-brand" href="index.html">
-          <img src="./images/princeton_square.jpeg" width="30" height="30" class="d-inline-block align-top">
+          <img src="./images/princeton_square.jpg" width="30" height="30" class="d-inline-block align-top">
           SAIL@Princeton
         </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,9 @@
         <div class="row align-items-center">
           <div class="col-sm-12">
             <h2 class="jumbotron-heading">Publications of SAIL@Princeton</h2>
-            <p class="lead">TODO: write a sentence or two to describe this group of people. Something like: SAIL@Princeton publishes across conferences, from systemsy ones to ML ones</p>
+            <p class="lead">Our publications showcase cutting-edge research at the intersection of systems and machine learning, 
+              advancing efficient, scalable, and secure AI/ML systems. From novel models and algorithms to optimized runtime systems for training and inference, 
+              our work pushes the boundaries of next-generation AI infrastructure. Explore our latest contributions to AI/ML and systems research below.</p>
           </div>
         </div>
       </div>
@@ -164,6 +166,7 @@
               Neil Agarwal, Rui Pan, Francis Y. Yan, Ravi Netravali <br>
               NSDI 2025<br>
               <span class="badge badge-secondary">ML for Systems</span>
+              <span class="badge badge-secondary">Edge AI Systems</span>
               <div class="mt-2">
                 <a href="https://arxiv.org/pdf/2410.03339" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -201,6 +204,36 @@
         <div class="col-sm-12">
           <h3>2024</h3>
           <ul>
+            <li class="paper-item">
+              <h5>RAGServe: Fast Quality-Aware RAG Systems with Configuration Adaptation</h5> 
+              Siddhant Ray, Rui Pan, Zhuohan Gu, Kuntai Du, Ganesh Ananthanarayanan, Ravi Netravali, Junchen Jiang <br>
+              arXiv 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Compound AI Systems</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2412.10543" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#ragserve-abstract" role="button" aria-expanded="false" aria-controls="ragserve-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="ragserve-abstract">
+                <div class="card card-body">
+                  RAG (Retrieval Augmented Generation) allows LLMs (large language models) to 
+                  generate better responses with external knowledge, but using more external 
+                  knowledge often improves generation quality at the expense of response delay. 
+                  Prior work either reduces the response delay (through better scheduling of RAG 
+                  queries) or strives to maximize quality (which involves tuning the RAG workflow), 
+                  but they fall short in optimizing the \emph {tradeoff} between the delay 
+                  and quality of RAG responses. This paper presents RAGServe, the first RAG system 
+                  that jointly schedules queries and adapts the key RAG configurations of each 
+                  job, such as the number of retrieved text chunks and synthesis methods, 
+                  in order to balance quality optimization and response delay reduction. 
+                  Using 4 popular RAG-QA datasets, we show that compared with the state-of-the-art 
+                  RAG scheduling system, RAGServe reduces the generation latency by 1.64--2.54×
+                  without sacrificing generation quality.
+                </div>
+              </div>
+            </li>
             <li class="paper-item">
               <h5>
                 Apparate: Rethinking Early Exits to Tame Latency-Throughput Tensions in ML Serving
