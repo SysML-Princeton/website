@@ -371,6 +371,83 @@
                 </div>
               </div>
             </li>
+            <li class="paper-item">
+              <h5>ModelKeeper: Accelerating DNN Training via Automated Training Warmup</h5> 
+              Fan Lai, Yinwei Dai, Harsha Madhyastha, Mosharaf Chowdhury <br>
+              NSDI 2023<br>
+              <span class="badge badge-secondary">Efficient Training</span>
+              <div class="mt-2">
+                <a href="https://www.usenix.org/system/files/nsdi23-lai-fan.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#modelkeeper-abstract" role="button" aria-expanded="false" aria-controls="modelkeeper-abstract">Abstract</a>
+                <a href="https://github.com/SymbioticLab/ModelKeeper" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
+                </a>
+              </div>
+              <div class="collapse" id="modelkeeper-abstract">
+                <div class="card card-body">
+                  With growing deployment of machine learning (ML) models,
+                  ML developers are training or re-training increasingly more
+                  deep neural networks (DNNs). They do so to find the most
+                  suitable model that meets their accuracy requirement while
+                  satisfying the resource and timeliness constraints of the target
+                  environment. In large shared clusters, the growing number
+                  of neural architecture search (NAS) and training jobs often
+                  result in models sharing architectural similarities with others
+                  from the same or a different ML developer. However, existing
+                  solutions do not provide a systematic mechanism to identify
+                  and leverage such similarities.
+                  We present ModelKeeper, the first automated training
+                  warmup system that accelerates DNN training by repurposing previously-trained models in a shared cluster. Our key
+                  insight is that initializing a training job’s model by transforming an already-trained model’s weights can jump-start it and
+                  reduce the total amount of training needed. However, models submitted over time can differ in their architectures and
+                  accuracy. Given a new model to train, ModelKeeper scalably
+                  identifies its architectural similarity with previously trained
+                  models, selects a parent model with high similarity and good
+                  model accuracy, and performs structure-aware transformation
+                  of weights to preserve maximal information from the parent
+                  model during the warmup of new model weights. Our evaluations across thousands of CV and NLP models show that
+                  ModelKeeper achieves 1.3×–4.3× faster training completion
+                  with little overhead and no reduction in model accuracy.
+                </div>
+              </div>
+            </li>
+            <li class="paper-item">
+              <h5>Auxo: Efficient Federated Learning via Scalable Client Clustering</h5> 
+              Jiachen Liu, Fan Lai, Yinwei Dai, Aditya Akella, Harsha Madhyastha, Mosharaf Chowdhury <br>
+              SoCC 2023<br>
+              <span class="badge badge-secondary">Efficient Training</span>
+              <div class="mt-2">
+                <a href="https://dl.acm.org/doi/pdf/10.1145/3620678.3624651" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#auxo-abstract" role="button" aria-expanded="false" aria-controls="auxo-abstract-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="auxo-abstract">
+                <div class="card card-body">
+                  Federated learning (FL) is an emerging machine learning
+                  (ML) paradigm that enables heterogeneous edge devices to
+                  collaboratively train ML models without revealing their raw
+                  data to a logically centralized server. However, beyond the
+                  heterogeneous device capacity, FL participants often exhibit
+                  differences in their data distributions, which are not independent and identically distributed (Non-IID). Many existing
+                  works present point solutions to address issues like slow
+                  convergence, low final accuracy, and bias in FL, all stemming
+                  from client heterogeneity.
+                  In this paper, we explore an additional layer of complexity to mitigate such heterogeneity by grouping clients with
+                  statistically similar data distributions (cohorts). We propose
+                  Auxo to gradually identify such cohorts in large-scale, lowavailability, and resource-constrained FL populations. Auxo
+                  then adaptively determines how to train cohort-specific models in order to achieve better model performance and ensure
+                  resource efficiency. Our extensive evaluations show that,
+                  by identifying cohorts with smaller heterogeneity and performing efficient cohort-based training, Auxo boosts various
+                  existing FL solutions in terms of final accuracy (2.1%–8.2%),
+                  convergence time (up to 2.2×), and model bias (4.8% - 53.8%)
+                </div>
+              </div>
+            </li>
+
+
           </ul>
         </div>
       </div>
