@@ -26,6 +26,9 @@
       .paper-item {
         margin-bottom: 15px; /* Adjust this value to increase/decrease the space */
       }
+      .badge.badge-secondary {
+        cursor: pointer;
+      }
     </style>
 
     <!-- Favicon -->
@@ -68,6 +71,17 @@
           // Attach event listener for manual searches
           $("#search").on("input", function () {
               filterPapers($(this).val());
+          });
+
+          // Add click event to badge elements
+          $(".badge.badge-secondary").on("click", function () {
+              let keyword = $(this).text().trim();
+              $("#search").val(keyword).trigger("input"); // Update search bar and trigger filtering
+          });
+
+          // Clear search when "Clear" button is clicked
+          $("#clear-search").on("click", function () {
+              $("#search").val("").trigger("input"); // Clear input and reset filter
           });
       });
     </script>
@@ -116,11 +130,14 @@
 
     <!-- Search bar -->
     <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <input type="text" id="search" class="form-control mb-3" placeholder="Search by title, author, or keyword...">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="d-flex mb-3">
+              <input type="text" id="search" class="form-control" placeholder="Search by title, author, or keyword..." style="flex: 1;">
+              <button id="clear-search" class="btn btn-outline-secondary ml-2">Reset</button>
           </div>
         </div>
+      </div>
     </div>
 
     <!-- 2025 -->
