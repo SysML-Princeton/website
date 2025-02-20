@@ -311,6 +311,146 @@
         <div class="col-sm-12">
           <h3>2024</h3>
           <ul>
+
+
+
+            <li class="paper-item">
+              <h5>Catastrophic jailbreak of open-source LLMs via exploiting generation</h5> 
+              Yangsibo Huang, Samyak Gupta, Mengzhou Xia, Kai Li, Danqi Chen<br>
+              ICLR 2024<br>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2310.06987" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+                The rapid progress in open-source large language models (LLMs) is significantly
+advancing AI development. Extensive efforts have been made before model release to align their behavior with human values, with the primary goal of ensuring their helpfulness and harmlessness. However, even carefully aligned models can be manipulated maliciously, leading to unintended behaviors, known as
+“jailbreaks”. These jailbreaks are typically triggered by specific text inputs, often referred to as adversarial prompts. In this work, we propose the generation
+exploitation attack, an extremely simple approach that disrupts model alignment
+by only manipulating variations of decoding methods. By exploiting different
+generation strategies, including varying decoding hyper-parameters and sampling
+methods, we increase the misalignment rate from 0% to more than 95% across
+11 language models including LLAMA2, VICUNA, FALCON, and MPT families,
+outperforming state-of-the-art attacks with 30× lower computational cost. Finally, we propose an effective alignment method that explores diverse generation
+strategies, which can reasonably reduce the misalignment rate under our attack.
+Altogether, our study underscores a major failure in current safety evaluation and
+alignment procedures for open-source LLMs, strongly advocating for more comprehensive red teaming and better alignment before releasing such models1
+                </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>MadEye: Boosting Live Video Analytics Accuracy with Adaptive Camera Configurations</h5> 
+              Mike Wong, Murali Ramanujam, Guha Balakrishnan, Ravi Netravali<br>
+              NSDI 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://michaeldwong.github.io/papers/madeye-nsdi24.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+    Camera orientations (i.e., rotation and zoom) govern the
+    content that a camera captures in a given scene, which in
+    turn heavily influences the accuracy of live video analytics
+    pipelines. However, existing analytics approaches leave this
+    crucial adaptation knob untouched, instead opting to only
+    alter the way that captured images from fixed orientations
+    are encoded, streamed, and analyzed. We present MadEye,
+    a camera-server system that automatically and continually
+    adapts orientations to maximize accuracy for the workload
+    and resource constraints at hand. To realize this using commodity pan-tilt-zoom (PTZ) cameras, MadEye embeds (1) a
+    search algorithm that rapidly explores the massive space of
+    orientations to identify a fruitful subset at each time, and (2) a
+    novel knowledge distillation strategy to efficiently (with only
+    camera resources) select the ones that maximize workload accuracy. Experiments on diverse workloads show that MadEye
+    boosts accuracy by 2.9-25.7% for the same resource usage, or
+    achieves the same accuracy with 2-3.7× lower resource costs.
+                </div>
+              </div>
+            </li>
+
+
+
+
+
+            <li class="paper-item">
+              <h5>ADR-X: ANN-Assisted Wireless Link Rate Adaptation for Compute-Constrained Embedded Gaming Devices</h5> 
+              Hao Yin, Murali Ramanujam, Joe Schaefer, Stan Adermann, Srihari Narlanka, Perry Lea, Ravi Netravali, Krishna Chintalapudi<br>
+              NSDI 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://www.usenix.org/system/files/nsdi24-yin.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+                The wireless channel between gaming console and accessories
+e.g. controllers and headsets, experiences extremely rapid
+variations due to abrupt head and hand movements amidst
+an exciting game. In the absence of prior studies on wireless
+packet losses for console gaming, through extensive evaluations and user studies, we find that state-of-the-art rate adaptation schemes, unable to keep up with these rapid changes,
+experience packet loss rates of 2-10% while loss rates that
+are 10× lower (0.1-0.5%) are required to ensure a high quality gaming experience. We present ADR-X, an ANN-based
+contextual multi-armed bandit rate adaptation technique that
+continuously predicts and tracks the channel and picks appropriate data rates. A key challenge for ADR-X is that it must
+run on power and compute constrained embedded devices
+under realtime constraints. ADR-X addresses this challenge
+by meticulously crafting an ANN that leverages existing communication theory results to incorporate domain knowledge.
+This allows ADR-X to achieve 10× lower packet losses than
+existing schemes while also running 100× faster than stateof-the-art reinforcement learning schemes, making it suitable
+for deployment on embedded gaming devices.
+
+                </div>
+              </div>
+            </li>
+
+
+
+
+
+
+
+            <li class="paper-item">
+              <h5>https://www.usenix.org/system/files/nsdi24-hsieh.pdf</h5> 
+              Kevin Hsieh*, Mike Wong*, Santiago Segarra, Sathiya Kumaran Mani, Trevor Eberl, Anatoliy Panasyuk, Ravi Netravali, Ranveer Chandra, Srikanth Kandula<br>
+              NSDI 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://michaeldwong.github.io/papers/netvigil-nsdi24.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+ The growing number of breaches in data centers
+underscores an urgent need for more effective security. Traditional perimeter defense measures and static zero-trust approaches are unable to address the unique challenges that arise
+from the scale, complexity, and evolving nature of today’s
+data center networks. To tackle these issues, we introduce
+NetVigil, a robust and cost-efficient anomaly detection system
+specifically designed for east-west traffic within data center
+networks. NetVigil adeptly extracts security-focused, graphbased features from network flow logs and employs domainspecific graph neural networks (GNNs) and contrastive learning techniques to strengthen its resilience against normal
+traffic variations and adversarial evasion strategies. Our evaluation, over various attack scenarios and traces from real-world
+production clusters, shows that NetVigil delivers significant
+improvements in accuracy, cost, and detection latency compared to state-of-the-art anomaly detection systems, providing
+a practical, supplementary security mechanism to protect the
+east-west traffic within data center networks.
+                </div>
+              </div>
+            </li>
+
+
+
+
             <li class="paper-item">
               <h5>
                 Apparate: Rethinking Early Exits to Tame Latency-Throughput Tensions in ML Serving
@@ -454,6 +594,78 @@
         <div class="col-sm-12">
           <h3>2023</h3>
           <ul>
+
+            <li class="paper-item">
+              <h5>Privacy Implications of Retrieval-Based Language Models</h5> 
+              Yangsibo Huang, Samyak Gupta, Zexuan Zhong, Kai Li, Danqi Chen<br>
+              EMNLP 2023<br>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2305.14888" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marvolo-abstract" role="button" aria-expanded="false" aria-controls="marvolo-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="marvolo-abstract">
+                <div class="card card-body">
+                Retrieval-based language models (LMs) have
+demonstrated improved interpretability, factuality, and adaptability compared to their parametric counterparts, by incorporating retrieved
+text from external datastores. While it is well
+known that parametric models are prone to leaking private data, it remains unclear how the addition of a retrieval datastore impacts model
+privacy. In this work, we present the first study
+of privacy risks in retrieval-based LMs, particularly kNN-LMs. Our goal is to explore the
+optimal design and training procedure in domains where privacy is of concern, aiming to
+strike a balance between utility and privacy.
+Crucially, we find that kNN-LMs are more susceptible to leaking private information from
+their private datastore than parametric models.
+We further explore mitigations of privacy risks.
+When privacy information is targeted and readily detected in the text, we find that a simple
+sanitization step would completely eliminate
+the risks, while decoupling query and key encoders achieves an even better utility-privacy
+trade-off. Otherwise, we consider strategies of
+mixing public and private data in both datastore and encoder training. While these methods
+offer modest improvements, they leave considerable room for future work. Together, our
+findings provide insights for practitioners to
+better understand and mitigate privacy risks in
+retrieval-based LMs. 
+                </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>Marvolo: Programmatic Data Augmentation for Deep Malware Detection</h5> 
+              Michael Wong, Edward Raff, James Holt, Ravi Netravali<br>
+              ECML PKDD 2023<br>
+              <div class="mt-2">
+                <a href="https://michaeldwong.github.io/papers/marvolo.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marvolo-abstract" role="button" aria-expanded="false" aria-controls="marvolo-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="marvolo-abstract">
+                <div class="card card-body">
+              Data acquisition for ML-driven malware detection is challenging. While large commercial datasets exist, they are prohibitively
+expensive. On the other hand, an entity (e.g., a bank or government),
+may be targeted with unique malware, but the data samples available
+will never be sufficient to train a bespoke ML-based detector. While data
+augmentation has been a key component in improving deep learning models by providing requisite diversity for generalization, it has proven far
+more challenging for malware detection. The main challenges are that (1)
+determining the augmentations to make is not straightforward, (2) operations are on binaries rather than source code (which is not available),
+complicating correctness and understanding, and (3) labeling new files
+mandates expensive binary reverse engineering. We present Marvolo for
+creating realistic, semantics preserving transformations that mimic the
+code alterations made by malware authors in practice, allowing us to generate augmented data on raw binary files. This also enables Marvolo to
+safely propagate labels to newly-generated data. Across several malware
+datasets and recent ML-based detectors, Marvolo improves accuracy
+and AUC by up to 5% and 10% respectively, while boosting efficiency by
+79x by avoiding redundant computation.   
+              </div>
+              </div>
+            </li>
+
+
+
+
             <li class="paper-item">
               <h5>Mamba: Linear-Time Sequence Modeling with Selective State Spaces</h5> 
               Albert Gu*, Tri Dao* <br>
@@ -545,6 +757,146 @@
                 </div>
               </div>
             </li>
+
+
+            <li class="paper-item">
+              <h5>Boggart: Towards General-Purpose Acceleration of Retrospective Video Analytics</h5> 
+              Neil Agarwal, Ravi Netravali<br>
+              NSDI 2023<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://www.cs.princeton.edu/~ravian/publications/boggart_nsdi23.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+              Commercial retrospective video analytics platforms have increasingly adopted general interfaces to support the custom
+queries and convolutional neural networks (CNNs) that different applications require. However, existing optimizations
+were designed for settings where CNNs were platform- (not
+user-) determined, and fail to meet at least one of the following key platform goals when that condition is violated:
+reliable accuracy, low latency, and minimal wasted work.
+We present Boggart, a system that simultaneously meets
+all three goals while supporting the generality that today’s
+platforms seek. Prior to queries being issued, Boggart carefully employs traditional computer vision algorithms to generate indices that are imprecise, but are fundamentally comprehensive across different CNNs/queries. For each issued
+query, Boggart employs new techniques to quickly characterize the imprecision of its index, and sparingly run CNNs (and
+propagate results to other frames) in a way that bounds accuracy drops. Our results highlight that Boggart’s improved
+generality comes at low cost, with speedups that match (and
+most often, exceed) prior, model-specific approaches.  
+              </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>GEMEL: Model Merging for Memory-Efficient, Real-Time Video Analytics at the Edge</h5> 
+              Arthi Padmanabhan, Neil Agarwal, Anand Iyer, Ganesh Ananthanarayanan, Yuanchao Shu, Nikolaos Karianakis, Harry Xu, Ravi Netravali<br>
+              NSDI 2023<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://www.cs.princeton.edu/~ravian/publications/gemel_nsdi23.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+              Video analytics pipelines have steadily shifted to edge deployments to reduce bandwidth overheads and privacy violations, but in doing so, face an ever-growing resource tension. Most notably, edge-box GPUs lack the memory needed
+to concurrently house the growing number of (increasingly
+complex) models for real-time inference. Unfortunately, existing solutions that rely on time/space sharing of GPU resources are insufficient as the required swapping delays result in unacceptable frame drops and accuracy loss. We
+present model merging, a new memory management technique that exploits architectural similarities between edge
+vision models by judiciously sharing their layers (including weights) to reduce workload memory costs and swapping delays. Our system, Gemel, efficiently integrates merging into existing pipelines by (1) leveraging several guiding observations about per-model memory usage and interlayer dependencies to quickly identify fruitful and accuracypreserving merging configurations, and (2) altering edge inference schedules to maximize merging benefits. Experiments across diverse workloads reveal that Gemel reduces
+memory usage by up to 60.7%, and improves overall accuracy by 8-39% relative to time or space sharing alone
+                </div>
+              </div>
+            </li>
+
+
+
+
+            <li class="paper-item">
+              <h5>Bamboo: Making Preemptible Instances Resilient for Affordable Training of Large DNNs</h5> 
+              John Thorpe, Pengzhan Zhao, Jonathan Eyolfson, Yifan Qiao, Zhihao Jia, Minjia Zhang, Ravi Netravali, Harry Xu
+<br>
+              NSDI 2023<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://www.cs.princeton.edu/~ravian/publications/bamboo_nsdi23.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+                DNN models across many domains continue to grow in size,
+resulting in high resource requirements for effective training,
+and unpalatable (and often unaffordable) costs for organizations and research labs across scales. This paper aims to
+significantly reduce training costs with effective use of preemptible instances, i.e., those that can be obtained at a much
+cheaper price while idle, but may be preempted whenever
+requested by priority users. Doing so, however, requires new
+forms of resiliency and efficiency to cope with the possibility
+of frequent preemptions – a failure model that is drastically
+different from the occasional failures in normal cluster settings that existing checkpointing techniques target.
+We present Bamboo, a distributed system that tackles these
+challenges by introducing redundant computations into the
+training pipeline, i.e., whereby one node performs computations over not only its own layers but also over some layers in its neighbor. Our key insight is that training large
+models often requires pipeline parallelism where “pipeline
+bubbles” naturally exist. Bamboo carefully fills redundant
+computations into these bubbles, providing resilience at a low
+cost. Across a variety of widely used DNN models, Bamboo
+outperforms traditional checkpointing by 3.7× in training
+throughput, and reduces costs by 2.4× compared to a setting
+where on-demand instances are used.
+                </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>RECL: Responsive Resource-Efficient Continuous Learning for Video Analytics</h5> 
+             Mehrdad Khani, Ganesh Ananthanarayanan, Kevin Hsieh, Junchen Jiang, Ravi Netravali, Yuanchao Shu, Mohammad Alizadeh, Victor Bahl<br>
+              NSDI 2023<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://www.cs.princeton.edu/~ravian/publications/bamboo_nsdi23.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="e3-abstract">
+                <div class="card card-body">
+               Continuous learning has recently shown promising results
+for video analytics by adapting a lightweight “expert” DNN
+model for each specific video scene to cope with the data drift
+in real time. However, current adaptation approaches either
+rely on periodic retraining and suffer its delay and significant
+compute costs or rely on selecting historical models and
+incur accuracy loss by not fully leveraging the potential of
+persistent retraining. Without dynamically optimizing the
+resource sharing among model selection and retraining, both
+approaches have a diminishing return at scale. RECL is
+a new video-analytics framework that carefully integrates
+model reusing and online model retraining, allowing it
+to quickly adapt the expert model given any video frame
+samples. To do this, RECL (i) shares across edge devices
+a (potentially growing) “model zoo” that comprises expert
+models previously trained for all edge devices, enabling history
+model reuse across video sessions, (ii) uses a fast procedure to
+online select a highly accurate expert model from this shared
+model zoo, and (iii) dynamically optimizes GPU allocation
+among model retraining, model selection, and timely updates
+of the model zoo. Our evaluation of RECL over 70 hours of
+real-world videos across two vision tasks (object detection and
+classification) shows substantial performance gains compared
+to prior work, further amplifying over the system lifetime. 
+                </div>
+              </div>
+            </li>
+
+
+
+
             <li class="paper-item">
               <h5>Auxo: Efficient Federated Learning via Scalable Client Clustering</h5> 
               Jiachen Liu, Fan Lai, Yinwei Dai, Aditya Akella, Harsha Madhyastha, Mosharaf Chowdhury <br>
