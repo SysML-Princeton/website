@@ -322,9 +322,9 @@
                 <a href="https://arxiv.org/pdf/2310.06987" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#genexploit-abstract" role="button" aria-expanded="false" aria-controls="genexploit-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="genexploit-abstract">
                 <div class="card card-body">
                 The rapid progress in open-source large language models (LLMs) is significantly
 advancing AI development. Extensive efforts have been made before model release to align their behavior with human values, with the primary goal of ensuring their helpfulness and harmlessness. However, even carefully aligned models can be manipulated maliciously, leading to unintended behaviors, known as
@@ -347,14 +347,14 @@ alignment procedures for open-source LLMs, strongly advocating for more comprehe
               <h5>MadEye: Boosting Live Video Analytics Accuracy with Adaptive Camera Configurations</h5> 
               Mike Wong, Murali Ramanujam, Guha Balakrishnan, Ravi Netravali<br>
               NSDI 2024<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Edge AI Systems</span>
               <div class="mt-2">
                 <a href="https://michaeldwong.github.io/papers/madeye-nsdi24.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#madeye-abstract" role="button" aria-expanded="false" aria-controls="madeye-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="madeye-abstract">
                 <div class="card card-body">
     Camera orientations (i.e., rotation and zoom) govern the
     content that a camera captures in a given scene, which in
@@ -389,9 +389,9 @@ alignment procedures for open-source LLMs, strongly advocating for more comprehe
                 <a href="https://www.usenix.org/system/files/nsdi24-yin.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#adrx-abstract" role="button" aria-expanded="false" aria-controls="adrx-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="adrx-abstract">
                 <div class="card card-body">
                 The wireless channel between gaming console and accessories
 e.g. controllers and headsets, experiences extremely rapid
@@ -420,7 +420,7 @@ for deployment on embedded gaming devices.
 
 
             <li class="paper-item">
-              <h5>https://www.usenix.org/system/files/nsdi24-hsieh.pdf</h5> 
+              <h5>NetVigil: Robust and Low-Cost Anomaly Detection for East-West Data Center Security</h5> 
               Kevin Hsieh*, Mike Wong*, Santiago Segarra, Sathiya Kumaran Mani, Trevor Eberl, Anatoliy Panasyuk, Ravi Netravali, Ranveer Chandra, Srikanth Kandula<br>
               NSDI 2024<br>
               <span class="badge badge-secondary">Efficient Inference</span>
@@ -428,9 +428,10 @@ for deployment on embedded gaming devices.
                 <a href="https://michaeldwong.github.io/papers/netvigil-nsdi24.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#netvigil-abstract" role="button" aria-expanded="false" aria-controls="netvigil-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="netvigil-abstract">
                 <div class="card card-body">
  The growing number of breaches in data centers
 underscores an urgent need for more effective security. Traditional perimeter defense measures and static zero-trust approaches are unable to address the unique challenges that arise
@@ -512,6 +513,133 @@ east-west traffic within data center networks.
                 </div>
               </div>
             </li>
+
+
+            <li class="paper-item">
+              <h5>AT-EDM: Attention-Driven Training-Free Efficiency Enhancement of Diffusion Models</h5> 
+              Hongjie Wang, Difan Liu, Yan Kang, Yijun Li, Zhe Lin, Niraj K. Jha, Yuchen Liu<br>
+              CVPR 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2405.05252" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#atedm-abstract" role="button" aria-expanded="false" aria-controls="atedm-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="atedm-abstract">
+                <div class="card card-body">
+
+Diffusion Models (DMs) have exhibited superior performance in generating high-quality and diverse images. However, this exceptional performance comes at the cost of expensive architectural design, particularly due to the attention module heavily used in leading models. Existing works
+mainly adopt a retraining process to enhance DM efficiency.
+This is computationally expensive and not very scalable. To
+this end, we introduce the Attention-driven Training-free
+Efficient Diffusion Model (AT-EDM) framework that leverages attention maps to perform run-time pruning of redundant tokens, without the need for any retraining. Specifically, for single-denoising-step pruning, we develop a novel
+ranking algorithm, Generalized Weighted Page Rank (GWPR), to identify redundant tokens, and a similarity-based
+recovery method to restore tokens for the convolution operation. In addition, we propose a Denoising-Steps-Aware
+Pruning (DSAP) approach to adjust the pruning budget
+across different denoising timesteps for better generation
+quality. Extensive evaluations show that AT-EDM performs favorably against prior art in terms of efficiency
+(e.g., 38.8% FLOPs saving and up to 1.53× speed-up over
+Stable Diffusion XL) while maintaining nearly the same
+FID and CLIP scores as the full model. Project webpage:
+https://atedm.github.io.
+                </div>
+              </div>
+            </li>
+            <li class="paper-item">
+              <h5>DynaMo: Accelerating Language Model Inference with Dynamic Multi-Token Sampling</h5> 
+              Shikhar Tuli, Chi-Heng Lin, Yen-Chang Hsu, Niraj Jha, Yilin Shen, Hongxia Jin<br>
+              NAACL 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://aclanthology.org/2024.naacl-long.182.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#dynamo-abstract" role="button" aria-expanded="false" aria-controls="dynamo-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="dynamo-abstract">
+                <div class="card card-body">
+Traditional language models operate autoregressively, i.e., they predict one token at a time. Rapid explosion in model sizes has resulted in high inference times. In this work, we propose DynaMo, a suite of multi-token prediction language models that reduce net inference times. Our models *dynamically* predict multiple tokens based on their confidence in the predicted joint probability distribution. We propose a lightweight technique to train these models, leveraging the weights of traditional autoregressive counterparts. Moreover, we propose novel ways to enhance the estimated joint probability to improve text generation quality, namely co-occurrence weighted masking and adaptive thresholding. We also propose systematic qualitative and quantitative methods to rigorously test the quality of generated text for non-autoregressive generation. One of the models in our suite, DynaMo-7.3B-T3, achieves same-quality generated text as the baseline (Pythia-6.9B) while achieving 2.57× speed-up with only 5.87% and 2.67% parameter and training time overheads, respectively.
+                </div>
+              </div>
+            </li>
+
+
+
+            <li class="paper-item">
+              <h5>LLMCompass: Enabling Efficient Hardware Design for Large Language Model Inference</h5> 
+              Hengrui Zhang, August Ning, Rohan Baskar Prabhakar, and David Wentzlaff<br>
+              ISCA 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://parallel.princeton.edu/papers/isca24_llmcompass.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#llmcompass-abstract" role="button" aria-expanded="false" aria-controls="llmcompass-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="llmcompass-abstract">
+                <div class="card card-body">
+The past year has witnessed the increasing popularity of Large Language Models (LLMs). Their unprecedented
+scale and associated high hardware cost have impeded their
+broader adoption, calling for efficient hardware designs. With the
+large hardware needed to simply run LLM inference, evaluating
+different hardware designs becomes a new bottleneck.
+This work introduces LLMCompass1
+, a hardware evaluation
+framework for LLM inference workloads. LLMCompass is fast,
+accurate, versatile, and able to describe and evaluate different
+hardware designs. LLMCompass includes a mapper to automatically find performance-optimal mapping and scheduling. It also
+incorporates an area-based cost model to help architects reason
+about their design choices. Compared to real-world hardware,
+LLMCompass’ estimated latency achieves an average 10.9% error rate across various operators with various input sizes and an
+average 4.1% error rate for LLM inference. With LLMCompass,
+simulating a 4-NVIDIA A100 GPU node running GPT-3 175B
+inference can be done within 16 minutes on commodity hardware,
+including 26,400 rounds of the mapper’s parameter search.
+With the aid of LLMCompass, this work draws architectural
+implications and explores new cost-effective hardware designs. By
+reducing the compute capability or replacing High Bandwidth
+Memory (HBM) with traditional DRAM, these new designs
+can achieve as much as 3.41x improvement in performance/cost
+compared to an NVIDIA A100, making them promising choices
+for democratizing LLMs.
+
+                </div>
+              </div>
+            </li>
+
+
+
+            <li class="paper-item">
+              <h5>Kraken: Inherently Parallel Transformers For Efficient Multi-Device Inference</h5> 
+              Rohan Baskar Prabhakar, Hengrui Zhang, and David Wentzlaff <br>
+              NeurIPS 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://parallel.princeton.edu/papers/Kraken.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#kraken-abstract" role="button" aria-expanded="false" aria-controls="kraken-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="kraken-abstract">
+                <div class="card card-body">
+               Large Transformer networks are increasingly used in settings where low inference latency is necessary to enable new applications and improve the end-user
+experience. However, autoregressive inference is resource intensive and requires
+parallelism for efficiency. Parallelism introduces collective communication that
+is both expensive and represents a phase when hardware resources are underutilized. Towards mitigating this, Kraken is an evolution of the standard Transformer
+architecture that is designed to complement existing tensor parallelism schemes
+for efficient inference on multi-device systems. By introducing a fixed degree of
+intra-layer model parallelism, the architecture allows collective operations to be
+overlapped with compute, decreasing latency and increasing hardware utilization.
+When trained on OpenWebText, Kraken models reach a similar perplexity as standard Transformers while also preserving their language modeling capabilities as
+evaluated on the SuperGLUE benchmark. Importantly, when tested on multi-GPU
+systems using TensorRT-LLM engines, Kraken speeds up Time To First Token by
+a mean of 35.6% across a range of model sizes, context lengths, and degrees of
+tensor parallelism 
+                </div>
+              </div>
+            </li>
+
             <li class="paper-item">
               <h5>SimPO: Simple Preference Optimization with a Reference-Free Reward</h5> 
               Yu Meng*, Mengzhou Xia*, Danqi Chen <br>
@@ -634,7 +762,7 @@ retrieval-based LMs.
 
             <li class="paper-item">
               <h5>Marvolo: Programmatic Data Augmentation for Deep Malware Detection</h5> 
-              Michael Wong, Edward Raff, James Holt, Ravi Netravali<br>
+              Mike Wong, Edward Raff, James Holt, Ravi Netravali<br>
               ECML PKDD 2023<br>
               <div class="mt-2">
                 <a href="https://michaeldwong.github.io/papers/marvolo.pdf" target="_blank">
@@ -665,6 +793,42 @@ and AUC by up to 5% and 10% respectively, while boosting efficiency by
 
 
 
+            <li class="paper-item">
+              <h5>Mux-plms: Data multiplexing for high-throughput language models</h5> 
+              Vishvak Murahari, Ameet Deshpande, Carlos E Jimenez, Izhak Shafran, Mingqiu Wang, Yuan Cao, Karthik Narasimhan <br>
+              EMNLP 2023<br>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2302.12441" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#muxplms-abstract" role="button" aria-expanded="false" aria-controls="muxplms-abstract">Abstract</a>
+                <a href="https://github.com/state-spaces/mamba/" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
+                </a>
+              </div>
+              <div class="collapse" id="muxplms-abstract">
+                <div class="card card-body">
+The widespread adoption of large language
+models such as ChatGPT and Bard has led
+to unprecedented demand for these technologies. The burgeoning cost of inference for everincreasing model sizes coupled with hardware
+shortages has limited affordable access and
+poses a pressing need for efficiency approaches
+geared towards high throughput and performance. Multi-input multi-output (MIMO) algorithms such as data multiplexing, offer a
+promising solution with a many-fold increase
+in throughput by performing inference for multiple inputs at the cost of a single input. Yet
+these approaches are not currently performant
+enough to be deployed in modern systems. We
+change that by developing MUX-PLMs, a class
+of high throughput pre-trained language models
+(PLMs) trained with data multiplexing, that can
+be fine-tuned for any downstream task to yield
+high-throughput high-performance. Our novel
+multiplexing and demultiplexing modules proficiently entangle and disentangle inputs, and enable high-performance high throughput MUXPLMs that are competitive with vanilla PLMs
+while achieving 2x/5x inference speedup with
+only a 1 − 4% drop on a broad suite of tasks.
+                </div>
+              </div>
+            </li>
 
             <li class="paper-item">
               <h5>Mamba: Linear-Time Sequence Modeling with Selective State Spaces</h5> 
@@ -768,9 +932,9 @@ and AUC by up to 5% and 10% respectively, while boosting efficiency by
                 <a href="https://www.cs.princeton.edu/~ravian/publications/boggart_nsdi23.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#boggart-abstract" role="button" aria-expanded="false" aria-controls="boggart-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="boggart-abstract">
                 <div class="card card-body">
               Commercial retrospective video analytics platforms have increasingly adopted general interfaces to support the custom
 queries and convolutional neural networks (CNNs) that different applications require. However, existing optimizations
@@ -798,9 +962,9 @@ most often, exceed) prior, model-specific approaches.
                 <a href="https://www.cs.princeton.edu/~ravian/publications/gemel_nsdi23.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#gemel-abstract" role="button" aria-expanded="false" aria-controls="gemel-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="gemel-abstract">
                 <div class="card card-body">
               Video analytics pipelines have steadily shifted to edge deployments to reduce bandwidth overheads and privacy violations, but in doing so, face an ever-growing resource tension. Most notably, edge-box GPUs lack the memory needed
 to concurrently house the growing number of (increasingly
@@ -820,14 +984,14 @@ memory usage by up to 60.7%, and improves overall accuracy by 8-39% relative to 
               John Thorpe, Pengzhan Zhao, Jonathan Eyolfson, Yifan Qiao, Zhihao Jia, Minjia Zhang, Ravi Netravali, Harry Xu
 <br>
               NSDI 2023<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Efficient ML Training</span>
               <div class="mt-2">
                 <a href="https://www.cs.princeton.edu/~ravian/publications/bamboo_nsdi23.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#bamboo-abstract" role="button" aria-expanded="false" aria-controls="bamboo-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="bamboo-abstract">
                 <div class="card card-body">
                 DNN models across many domains continue to grow in size,
 resulting in high resource requirements for effective training,
@@ -857,14 +1021,14 @@ where on-demand instances are used.
               <h5>RECL: Responsive Resource-Efficient Continuous Learning for Video Analytics</h5> 
              Mehrdad Khani, Ganesh Ananthanarayanan, Kevin Hsieh, Junchen Jiang, Ravi Netravali, Yuanchao Shu, Mohammad Alizadeh, Victor Bahl<br>
               NSDI 2023<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Edge AI Systems</span>
               <div class="mt-2">
                 <a href="https://www.cs.princeton.edu/~ravian/publications/bamboo_nsdi23.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#e3-abstract" role="button" aria-expanded="false" aria-controls="e3-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#recl-abstract" role="button" aria-expanded="false" aria-controls="recl-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="e3-abstract">
+              <div class="collapse" id="recl-abstract">
                 <div class="card card-body">
                Continuous learning has recently shown promising results
 for video analytics by adapting a lightweight “expert” DNN
