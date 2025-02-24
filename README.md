@@ -14,7 +14,8 @@ The official website of the Systems for Artificial Intelligence Lab @ Princeton!
 - Use `<span class="badge badge-secondary">` for keyword tags. Choose existing keywords so the paper appears under the right category on `index.html`.
 - Update the paper's PDF URL.
 - Add an abstract inside `<div class="card card-body">`. Ensure the Abstract button toggles correctly by updating the `href` in the button tag and the `id` in the card. Use `projectname-abstract` as the naming convention for the ID.
-- Optionally, add a button linking to a website, Hugging Face model, etc.
+- Optionally, add a button linking to a project website, Hugging Face model page, etc.. Use `btn-outline-secondary` for unclickable, grey buttons.
+
 - Submit a PR for review!
 
 ## Updating existing information (headshot, homepage link, etc.)
