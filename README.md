@@ -21,3 +21,7 @@ The official website of the Systems for Artificial Intelligence Lab @ Princeton!
 ## Updating existing information (headshot, homepage link, etc.)
 
 - Please simply submit a PR for review!
+
+## Subscribing to the mailing list
+
+Use this [link](https://lists.cs.princeton.edu/mailman3/lists/sail@lists.cs.princeton.edu/)!
