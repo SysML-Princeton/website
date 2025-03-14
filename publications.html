@@ -236,11 +236,55 @@
         <div class="col-sm-12">
           <h3>2025</h3>
           <ul>
+
+
+
+            <li class="paper-item">
+              <h5>LinGen: Towards High-Resolution Minute-Length Text-to-Video Generation with Linear Computational Complexity</h5> 
+              Hongjie Wang, Chih-Yao Ma, Yen-Cheng Liu, Ji Hou, Tao Xu, Jialiang Wang, Felix Juefei-Xu, Yaqiao Luo, Peizhao Zhang, Tingbo Hou, Peter Vajda, Niraj K Jha, Xiaoliang Dai <br>
+              CVPR 2025<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2412.09856" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marconi-abstract" role="button" aria-expanded="false" aria-controls="marconi-abstract">Abstract</a>
+                <a href="https://github.com/ruipeterpan/marconi" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
+                </a>
+              </div>
+              <div class="collapse" id="marconi-abstract">
+                <div class="card card-body">
+Text-to-video generation enhances content creation but
+is highly computationally intensive: The computational cost
+of Diffusion Transformers (DiTs) scales quadratically in the
+number of pixels. This makes minute-length video generation extremely expensive, limiting most existing models to
+generating videos of only 10-20 seconds length. We propose a Linear-complexity text-to-video Generation (LinGen) framework whose cost scales linearly in the number
+of pixels. For the first time, LinGen enables high-resolution
+minute-length video generation on a single GPU without
+compromising quality. It replaces the computationallydominant and quadratic-complexity block, self-attention,
+with a linear-complexity block called MATE, which consists of an MA-branch and a TE-branch. The MA-branch
+targets short-to-long-range correlations, combining a bidirectional Mamba2 block with our token rearrangement
+method, Rotary Major Scan, and our review tokens developed for long video generation. The TE-branch is a novel
+TEmporal Swin Attention block that focuses on temporal
+correlations between adjacent tokens and medium-range tokens. The MATE block addresses the adjacency preservation issue of Mamba and improves the consistency of generated videos significantly. Experimental results show that
+LinGen outperforms DiT (with a 75.6% win rate) in video
+quality with up to 15× (11.5×) FLOPs (latency) reduction.
+Furthermore, both automatic metrics and human evaluation
+demonstrate our LinGen-4B yields comparable video quality to state-of-the-art models (with a 50.5%, 52.1%, 49.1%
+win rate with respect to Gen-3, LumaLabs, and Kling, respectively). This paves the way to hour-length movie generation and real-time interactive video generation. We provide 68s video generation results and more examples in our
+project website: https://lineargen.github.io/.
+                </div>
+              </div>
+            </li>
+
+
             <li class="paper-item">
               <h5>Marconi: Prefix Caching for the Era of Hybrid LLMs</h5> 
               Rui Pan, Zhuang Wang, Zhen Jia, Can Karakus, Luca Zancato, Tri Dao, Yida Wang, Ravi Netravali <br>
               MLSys 2025<br>
               <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Sequence Modeling</span>
               <span class="badge badge-secondary">State Space Models</span>
               <div class="mt-2">
                 <a href="https://arxiv.org/pdf/2411.19379" target="_blank">
@@ -406,6 +450,7 @@
               Kevin Hsieh*, Mike Wong*, Santiago Segarra, Sathiya Kumaran Mani, Trevor Eberl, Anatoliy Panasyuk, Ravi Netravali, Ranveer Chandra, Srikanth Kandula<br>
               NSDI 2024<br>
               <span class="badge badge-secondary">ML for Systems</span>
+              <span class="badge badge-secondary">Privacy and Security</span>
               <div class="mt-2">
                 <a href="https://michaeldwong.github.io/papers/netvigil-nsdi24.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -490,6 +535,48 @@
                 </div>
               </div>
             </li>
+
+
+            <li class="paper-item">
+              <h5>Zero-TPrune: Zero-Shot Token Pruning through Leveraging of the Attention Graph in Pre-Trained Transformers</h5> 
+              Hongjie Wang, Bhishma Dedhia, Niraj K Jha<br>
+              CVPR 2024<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_Zero-TPrune_Zero-Shot_Token_Pruning_through_Leveraging_of_the_Attention_Graph_CVPR_2024_paper.pdf" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marconi-abstract" role="button" aria-expanded="false" aria-controls="marconi-abstract">Abstract</a>
+                <a href="https://github.com/ruipeterpan/marconi" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
+                </a>
+              </div>
+              <div class="collapse" id="marconi-abstract">
+                <div class="card card-body">
+                Deployment of Transformer models on edge devices is
+becoming increasingly challenging due to the exponentially
+growing inference cost that scales quadratically with the
+number of tokens in the input sequence. Token pruning is an
+emerging solution to address this challenge due to its ease
+of deployment on various Transformer backbones. However, most token pruning methods require computationally
+expensive fine-tuning, which is undesirable in many edge
+deployment cases. In this work, we propose Zero-TPrune,
+the first zero-shot method that considers both the importance and similarity of tokens in performing token pruning. It leverages the attention graph of pre-trained Transformer models to produce an importance distribution for
+tokens via our proposed Weighted Page Rank (WPR) algorithm. This distribution further guides token partitioning
+for efficient similarity-based pruning. Due to the elimination of the fine-tuning overhead, Zero-TPrune can prune
+large models at negligible computational cost, switch between different pruning configurations at no computational
+cost, and perform hyperparameter tuning efficiently. We
+evaluate the performance of Zero-TPrune on vision tasks
+by applying it to various vision Transformer backbones and
+testing them on ImageNet. Without any fine-tuning, ZeroTPrune reduces the FLOPs cost of DeiT-S by 34.7% and
+improves its throughput by 45.3% with only 0.4% accuracy loss. Compared with state-of-the-art pruning methods that require fine-tuning, Zero-TPrune not only eliminates the need for fine-tuning after pruning but also does so
+with only 0.1% accuracy loss. Compared with state-of-theart fine-tuning-free pruning methods, Zero-TPrune reduces
+accuracy loss by up to 49% with similar FLOPs budgets.
+Project webpage: https://jha-lab.github.io/zerotprune.
+                </div>
+              </div>
+            </li>
+
             <li class="paper-item">
               <h5>AT-EDM: Attention-Driven Training-Free Efficiency Enhancement of Diffusion Models</h5> 
               Hongjie Wang, Difan Liu, Yan Kang, Yijun Li, Zhe Lin, Niraj K. Jha, Yuchen Liu<br>
@@ -545,7 +632,7 @@
               <h5>LLMCompass: Enabling Efficient Hardware Design for Large Language Model Inference</h5> 
               Hengrui Zhang, August Ning, Rohan Baskar Prabhakar, and David Wentzlaff<br>
               ISCA 2024<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Hardware Design for ML</span>
               <div class="mt-2">
                 <a href="https://parallel.princeton.edu/papers/isca24_llmcompass.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -585,7 +672,7 @@
               <h5>Kraken: Inherently Parallel Transformers For Efficient Multi-Device Inference</h5> 
               Rohan Baskar Prabhakar, Hengrui Zhang, and David Wentzlaff <br>
               NeurIPS 2024<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Hardware Design for ML</span>
               <div class="mt-2">
                 <a href="https://parallel.princeton.edu/papers/Kraken.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -659,6 +746,45 @@
                 </div>
               </div>
             </li>
+
+
+            <li class="paper-item">
+              <h5>Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality</h5> 
+              Tri Dao, Albert Gu <br>
+              ICML 2024<br>
+              <span class="badge badge-secondary">Emerging Paradigms</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/pdf/2405.21060" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#lory-abstract" role="button" aria-expanded="false" aria-controls="lory-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="lory-abstract">
+                <div class="card card-body">
+While Transformers have been the main architecture behind deep learning's success in language modeling, state-space models (SSMs) such as Mamba have recently been shown to match or outperform Transformers at small to medium scale. We show that these families of models are actually quite closely related, and develop a rich framework of theoretical connections between SSMs and variants of attention, connected through various decompositions of a well-studied class of structured semiseparable matrices. Our state space duality (SSD) framework allows us to design a new architecture (Mamba-2) whose core layer is an a refinement of Mamba's selective SSM that is 2-8X faster, while continuing to be competitive with Transformers on language modeling.
+                </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning</h5> 
+              Tri Dao<br>
+              ICLR 2024<br>
+              <span class="badge badge-secondary">Emerging Paradigms</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/abs/2307.08691" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#lory-abstract" role="button" aria-expanded="false" aria-controls="lory-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="lory-abstract">
+                <div class="card card-body">
+Scaling Transformers to longer sequence lengths has been a major problem in the last several years, promising to improve performance in language modeling and high-resolution image understanding, as well as to unlock new applications in code, audio, and video generation. The attention layer is the main bottleneck in scaling to longer sequences, as its runtime and memory increase quadratically in the sequence length. FlashAttention exploits the asymmetric GPU memory hierarchy to bring significant memory saving (linear instead of quadratic) and runtime speedup (2-4× compared to optimized baselines), with no approximation. However, FlashAttention is still not nearly as fast as optimized matrix-multiply (GEMM) operations, reaching only 25-40\% of the theoretical maximum FLOPs/s. We observe that the inefficiency is due to suboptimal work partitioning between different thread blocks and warps on the GPU, causing either low-occupancy or unnecessary shared memory reads/writes. We propose FlashAttention-2, with better work partitioning to address these issues. In particular, we (1) tweak the algorithm to reduce the number of non-matmul FLOPs (2) parallelize the attention computation, even for a single head, across different thread blocks to increase occupancy, and (3) within each thread block, distribute the work between warps to reduce communication through shared memory. These yield around 2× speedup compared to FlashAttention, reaching 50-73\% of the theoretical maximum FLOPs/s on A100 and getting close to the efficiency of GEMM operations. We empirically validate that when used end-to-end to train GPT-style models, FlashAttention-2 reaches training speed of up to 225 TFLOPs/s per A100 GPU (72\% model FLOPs utilization).
+                </div>
+              </div>
+            </li>
+
             <li class="paper-item">
               <h5>Sheared LLaMA: Accelerating Language Model Pre-training via Structured Pruning</h5> 
               Mengzhou Xia, Tianyu Gao, Zhiyuan Zeng, Danqi Chen<br>
@@ -692,11 +818,32 @@
         <div class="col-sm-12">
           <h3>2023</h3>
           <ul>
+
+
+            <li class="paper-item">
+              <h5>EdgeTran: Device-Aware Co-Search of Transformers for Efficient Inference on Mobile Edge Platforms</h5> 
+              Shikhar Tuli, Niraj K Jha<br>
+              IEEE Transactions on Mobile Computing 2023<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a href="https://ieeexplore.ieee.org/abstract/document/10301516" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marvolo-abstract" role="button" aria-expanded="false" aria-controls="marvolo-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="marvolo-abstract">
+                <div class="card card-body">
+                Automated design of efficient transformer models has recently attracted significant attention from industry and academia. However, most works only focus on certain metrics while searching for the best-performing transformer architecture. Furthermore, running traditional, complex, and large transformer models on low-compute edge platforms is a challenging problem. In this work, we propose a framework, called ProTran, to profile the hardware performance measures for a design space of transformer architectures and a diverse set of edge devices. We use this profiler in conjunction with the proposed co-search technique to obtain the best-performing models that have high accuracy on the given task and minimize latency, energy consumption, and peak power draw to enable edge deployment. We refer to our framework for co-optimizing accuracy and hardware performance measures as EdgeTran. It searches for the best transformer model and edge device pair. Finally, we propose GPTran, a multi-stage block-level grow-and-prune post-processing step that further improves accuracy in a hardware-aware manner. The obtained transformer model is 2.8× smaller and has a 0.8% higher GLUE score than the baseline (BERT-Base). Inference with it on the selected edge device enables 15.0% lower latency, 10.0× lower energy, and 10.8× lower peak power draw compared to an off-the-shelf GPU.
+                </div>
+              </div>
+            </li>
+
             <li class="paper-item">
               <h5>Privacy Implications of Retrieval-Based Language Models</h5> 
               Yangsibo Huang, Samyak Gupta, Zexuan Zhong, Kai Li, Danqi Chen<br>
               EMNLP 2023<br>
               <span class="badge badge-secondary">Compound AI Systems</span>
+              <span class="badge badge-secondary">Privacy and Security</span>
               <div class="mt-2">
                 <a href="https://arxiv.org/pdf/2305.14888" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -733,6 +880,7 @@
               Mike Wong, Edward Raff, James Holt, Ravi Netravali<br>
               ECML PKDD 2023<br>
               <span class="badge badge-secondary">ML for Systems</span>
+              <span class="badge badge-secondary">Privacy and Security</span>
               <div class="mt-2">
                 <a href="https://michaeldwong.github.io/papers/marvolo.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -802,6 +950,7 @@
               COLM 2023<br>
               <span class="badge badge-secondary">State Space Models</span>
               <span class="badge badge-secondary">Emerging Paradigms</span>
+              <span class="badge badge-secondary">Sequence Modeling</span>
               <div class="mt-2">
                 <a href="https://arxiv.org/pdf/2312.00752" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
