@@ -236,9 +236,6 @@
         <div class="col-sm-12">
           <h3>2025</h3>
           <ul>
-
-
-
             <li class="paper-item">
               <h5>LinGen: Towards High-Resolution Minute-Length Text-to-Video Generation with Linear Computational Complexity</h5> 
               Hongjie Wang, Chih-Yao Ma, Yen-Cheng Liu, Ji Hou, Tao Xu, Jialiang Wang, Felix Juefei-Xu, Yaqiao Luo, Peizhao Zhang, Tingbo Hou, Peter Vajda, Niraj K Jha, Xiaoliang Dai <br>
@@ -248,37 +245,35 @@
                 <a href="https://arxiv.org/pdf/2412.09856" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marconi-abstract" role="button" aria-expanded="false" aria-controls="marconi-abstract">Abstract</a>
-                <a href="https://github.com/ruipeterpan/marconi" target="_blank">
-                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#lingen-abstract" role="button" aria-expanded="false" aria-controls="lingen-abstract">Abstract</a>
+                <a href="https://lineargen.github.io/" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Website</button>
                 </a>
               </div>
-              <div class="collapse" id="marconi-abstract">
+              <div class="collapse" id="lingen-abstract">
                 <div class="card card-body">
-Text-to-video generation enhances content creation but
-is highly computationally intensive: The computational cost
-of Diffusion Transformers (DiTs) scales quadratically in the
-number of pixels. This makes minute-length video generation extremely expensive, limiting most existing models to
-generating videos of only 10-20 seconds length. We propose a Linear-complexity text-to-video Generation (LinGen) framework whose cost scales linearly in the number
-of pixels. For the first time, LinGen enables high-resolution
-minute-length video generation on a single GPU without
-compromising quality. It replaces the computationallydominant and quadratic-complexity block, self-attention,
-with a linear-complexity block called MATE, which consists of an MA-branch and a TE-branch. The MA-branch
-targets short-to-long-range correlations, combining a bidirectional Mamba2 block with our token rearrangement
-method, Rotary Major Scan, and our review tokens developed for long video generation. The TE-branch is a novel
-TEmporal Swin Attention block that focuses on temporal
-correlations between adjacent tokens and medium-range tokens. The MATE block addresses the adjacency preservation issue of Mamba and improves the consistency of generated videos significantly. Experimental results show that
-LinGen outperforms DiT (with a 75.6% win rate) in video
-quality with up to 15× (11.5×) FLOPs (latency) reduction.
-Furthermore, both automatic metrics and human evaluation
-demonstrate our LinGen-4B yields comparable video quality to state-of-the-art models (with a 50.5%, 52.1%, 49.1%
-win rate with respect to Gen-3, LumaLabs, and Kling, respectively). This paves the way to hour-length movie generation and real-time interactive video generation. We provide 68s video generation results and more examples in our
-project website: https://lineargen.github.io/.
+                  Text-to-video generation enhances content creation but
+                  is highly computationally intensive: The computational cost
+                  of Diffusion Transformers (DiTs) scales quadratically in the
+                  number of pixels. This makes minute-length video generation extremely expensive, limiting most existing models to
+                  generating videos of only 10-20 seconds length. We propose a Linear-complexity text-to-video Generation (LinGen) framework whose cost scales linearly in the number
+                  of pixels. For the first time, LinGen enables high-resolution
+                  minute-length video generation on a single GPU without
+                  compromising quality. It replaces the computationallydominant and quadratic-complexity block, self-attention,
+                  with a linear-complexity block called MATE, which consists of an MA-branch and a TE-branch. The MA-branch
+                  targets short-to-long-range correlations, combining a bidirectional Mamba2 block with our token rearrangement
+                  method, Rotary Major Scan, and our review tokens developed for long video generation. The TE-branch is a novel
+                  TEmporal Swin Attention block that focuses on temporal
+                  correlations between adjacent tokens and medium-range tokens. The MATE block addresses the adjacency preservation issue of Mamba and improves the consistency of generated videos significantly. Experimental results show that
+                  LinGen outperforms DiT (with a 75.6% win rate) in video
+                  quality with up to 15× (11.5×) FLOPs (latency) reduction.
+                  Furthermore, both automatic metrics and human evaluation
+                  demonstrate our LinGen-4B yields comparable video quality to state-of-the-art models (with a 50.5%, 52.1%, 49.1%
+                  win rate with respect to Gen-3, LumaLabs, and Kling, respectively). This paves the way to hour-length movie generation and real-time interactive video generation. We provide 68s video generation results and more examples in our
+                  project website: https://lineargen.github.io/.
                 </div>
               </div>
             </li>
-
-
             <li class="paper-item">
               <h5>Marconi: Prefix Caching for the Era of Hybrid LLMs</h5> 
               Rui Pan, Zhuang Wang, Zhen Jia, Can Karakus, Luca Zancato, Tri Dao, Yida Wang, Ravi Netravali <br>
