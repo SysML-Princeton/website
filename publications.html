@@ -446,6 +446,7 @@
               NSDI 2024<br>
               <span class="badge badge-secondary">ML for Systems</span>
               <span class="badge badge-secondary">Privacy and Security</span>
+              <span class="badge badge-secondary">Novel ML Applications</span>
               <div class="mt-2">
                 <a href="https://michaeldwong.github.io/papers/netvigil-nsdi24.pdf" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
@@ -811,6 +812,26 @@ Scaling Transformers to longer sequence lengths has been a major problem in the 
           <h3>2023</h3>
           <ul>
 
+
+
+
+            <li class="paper-item">
+              <h5>SCouT: Synthetic Counterfactuals via Spatiotemporal Transformers for Actionable Healthcare</h5> 
+              Bhishma Dedhia, Roshini Balasubramanian, Niraj K. Jha<br>
+              ACM Transactions on Computing for Healthcare, October 2023<br>
+              <span class="badge badge-secondary">Novel ML Applications</span>
+              <div class="mt-2">
+                <a href="https://dl.acm.org/doi/10.1145/3617180" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#scout-abstract" role="button" aria-expanded="false" aria-controls="scout-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="scout-abstract">
+                <div class="card card-body">
+The synthetic control method has pioneered a class of powerful data-driven techniques to estimate the counterfactual reality of a unit from donor units. At its core, the technique involves a linear model fitted on the pre-intervention period that combines donor outcomes to yield the counterfactual. However, linearly combining spatial information at each time instance using time-agnostic weights fails to capture important inter-unit and intra-unit temporal contexts and complex nonlinear dynamics of real data. We instead propose an approach to use local spatiotemporal information before the onset of the intervention as a promising way to estimate the counterfactual sequence. To this end, we suggest a Transformer model that leverages particular positional embeddings, a modified decoder attention mask, and a novel pre-training task to perform spatiotemporal sequence-to-sequence modeling. Our experiments on synthetic data demonstrate the efficacy of our method in the typical small donor pool setting and its robustness against noise. We also generate actionable healthcare insights at the population and patient levels by simulating a state-wide public health policy to evaluate its effectiveness, an in silico trial for asthma medications to support randomized controlled trials, and a medical intervention for patients with Friedreich’s ataxia to improve clinical decision making and promote personalized therapy (code is available at https://github.com/JHA-Lab/scout).
+                </div>
+              </div>
+            </li>
 
             <li class="paper-item">
               <h5>EdgeTran: Device-Aware Co-Search of Transformers for Efficient Inference on Mobile Edge Platforms</h5> 
@@ -1192,6 +1213,92 @@ Scaling Transformers to longer sequence lengths has been a major problem in the 
         </div>
       </div>
     </div>
+
+
+
+
+
+
+    <!-- 2022 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>2022</h3>
+          <ul>
+            <li class="paper-item">
+              <h5>ML-FEED: Machine Learning Framework for Efficient Exploit Detection</h5> 
+              Tanujay Saha, Tamjid Al Rahat, Najwa Aaraj, Yuan Tian, Niraj K. Jha<br>
+              IEEE 4th International Conference on Trust, Privacy and Security in Intelligent Systems, and Applications (TPS-ISA)<br>
+              <span class="badge badge-secondary">Novel ML Applications</span>
+              <span class="badge badge-secondary">Privacy and Security</span>
+              <div class="mt-2">
+                <a href="https://ieeexplore.ieee.org/document/10063446" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#mlfeed-abstract" role="button" aria-expanded="false" aria-controls="mlfeed-abstract-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="mlfeed-abstract">
+                <div class="card card-body">
+Machine learning (ML)-based methods have recently become attractive for detecting security vulnerability exploits. Unfortunately, state-of-the-art ML models like long short-term memories (LSTMs) and transformers incur significant computation overheads. This overhead makes it infeasible to deploy them in real-time environments. We propose a novel ML-based exploit detection model, ML-FEED, that enables highly efficient inference without sacrificing performance. We develop a novel automated technique to extract vulnerability patterns from the Common Weakness Enumeration (CWE) and Common Vulnerabilities and Exposures (CVE) databases. This feature enables ML-FEED to be aware of the latest cyber weaknesses. Second, it is not based on the traditional approach of classifying sequences of application programming interface (API) calls into exploit categories. Such traditional methods that process entire sequences incur huge computational overheads. Instead, ML-FEED operates at a finer granularity and predicts the exploits triggered by every API call of the program trace. Then, it uses a state table to update the states of these potential exploits and track the progress of potential exploit chains. ML-FEED also employs a feature engineering approach that uses natural language processing-based word embeddings, frequency vectors, and one-hot encoding to detect semantically-similar instruction calls. Then, it updates the states of the predicted exploit categories and triggers an alarm when a vulnerability fingerprint executes. Our experiments show that ML-FEED is 72.9× and 75, 828.9× faster than state-of-the-art lightweight LSTM and transformer models, respectively. We trained and tested ML-FEED on 79 real-world exploit categories. It predicts categories of exploit in real-time with 98.2% precision, 97.4% recall, and 97.8% F1 score. These results also outperform the LSTM and transformer baselines. In addition, we evaluated ML-FEED on the attack traces of CVE vulnerability exploits in three popular Java libraries and detected all three reported critical vulnerabilities in them.                
+
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>MHDeep: Mental health disorder detection system based on body-area and deep neural networks</h5> 
+              Shayan Hassantabar, Joe Zhang, Hongxu Yin, Niraj K. Jha<br>
+              ACM Transactions on Embedded Computing Systems<br>
+              <span class="badge badge-secondary">Novel ML Applications</span>
+              <div class="mt-2">
+                <a href="https://dl.acm.org/doi/pdf/10.1145/3527170" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#mhdeep-abstract" role="button" aria-expanded="false" aria-controls="mhdeep-abstract-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="mhdeep-abstract">
+                <div class="card card-body">
+Mental health problems impact the quality of life of millions of people around the world. However, diagnosis
+of mental health disorders is a challenging problem that often relies on self-reporting by patients about their
+behavioral patterns and social interactions. Therefore, there is a need for new strategies for diagnosis and
+daily monitoring of mental health conditions. The recent introduction of body-area networks consisting of a
+plethora of accurate sensors embedded in smartwatches and smartphones and edge-compatible deep neural
+networks (DNNs) points toward a possible solution. Such wearable medical sensors (WMSs) enable continuous monitoring of physiological signals in a passive and non-invasive manner. However, disease diagnosis
+based on WMSs and DNNs, and their deployment on edge devices, such as smartphones, remains a challenging problem. These challenges stem from the difficulty of feature engineering and knowledge distillation
+from the raw sensor data, as well as the computational and memory constraints of battery-operated edge
+devices. To this end, we propose a framework called MHDeep that utilizes commercially available WMSs and
+efficient DNN models to diagnose three important mental health disorders: schizoaffective, major depressive,
+and bipolar. MHDeep uses eight different categories of data obtained from sensors integrated in a smartwatch
+and smartphone. These categories include various physiological signals and additional information on motion
+patterns and environmental variables related to the wearer. MHDeep eliminates the need for manual feature
+engineering by directly operating on the data streams obtained from participants. Because the amount of data
+is limited, MHDeep uses a synthetic data generation module to augment real data with synthetic data drawn
+from the same probability distribution. We use the synthetic dataset to pre-train the weights of the DNN
+models, thus imposing a prior on the weights. We use a grow-and-prune DNN synthesis approach to learn
+both architecture and weights during the training process. We use three different data partitions to evaluate
+the MHDeep models trained with data collected from 74 individuals. We conduct two types of evaluations: at
+the data instance level and at the patient level. MHDeep achieves an average test accuracy, across the three
+data partitions, of 90.4%, 87.3%, and 82.4%, respectively, for classifications between healthy and schizoaffective disorder instances, healthy and major depressive disorder instances, and healthy and bipolar disorder
+instances. At the patient level, MHDeep DNN models achieve an accuracy of 100%, 100%, and 90.0% for the
+three mental health disorders, respectively, based on inference that uses 40, 16, and 22 minutes of sensor data
+collection from each patient.
+
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
 
 
     <!-- End-of-the-page jumbotron -->
