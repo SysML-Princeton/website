@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+    <!-- Font Awesome for social media icons -->
+    <script src="https://kit.fontawesome.com/791291c78f.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <!-- Site Information -->
+    <title> SAIL@Princeton </title>
+
+    <style type="text/css">
+      .smlinks {
+        color: black;
+      }
+      .smlinks:hover {
+        color: rgb(7, 107, 255);
+      }
+      .paper-item {
+        margin-bottom: 15px; /* Adjust this value to increase/decrease the space */
+      }
+      .badge.badge-secondary {
+        cursor: pointer;
+      }
+  .blog-preview {
+    max-width: 800px;
+    margin: 2rem auto;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #333;
+  }
+
+  .blog-preview .post {
+    margin-bottom: 2.5rem;
+  }
+
+  .blog-preview .post-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3f51b5;
+    text-decoration: none;
+  }
+
+  .blog-preview .post-title:hover {
+    text-decoration: underline;
+  }
+
+  .blog-preview .post-description {
+    font-size: 1.05rem;
+    margin: 0.5rem 0;
+  }
+
+  .blog-preview .post-meta {
+    font-size: 0.9rem;
+    color: #888;
+    .blog-preview {
+    max-width: 800px;
+    margin: 2rem auto;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #333;
+  }
+
+  .blog-preview .post {
+    margin-bottom: 2.5rem;
+  }
+
+  .blog-preview .post-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3f51b5;
+    text-decoration: none;
+  }
+
+  .blog-preview .post-title:hover {
+    text-decoration: underline;
+  }
+
+  .blog-preview .post-description {
+    font-size: 1.05rem;
+    margin: 0.5rem 0;
+  }
+
+  .blog-preview .post-meta {
+    font-size: 0.9rem;
+    color: #888;
+  }}
+    </style>
+
+    <!-- Favicon -->
+    <!-- TODO(ruipan): we could add a favicon of the website here -->
+    <!-- https://realfavicongenerator.net/ -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff"> -->
+    
+    <!-- Functionality for searching papers -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+          // Function to get URL parameters
+          function getQueryParam(name) {
+              let urlParams = new URLSearchParams(window.location.search);
+              return urlParams.get(name) || "";
+          }
+    
+          // Function to perform search
+          function filterPapers(query) {
+              query = query.toLowerCase();
+              $(".paper-item").each(function () {
+                  let text = $(this).text().toLowerCase();
+                  $(this).closest("li").toggle(text.includes(query));
+              });
+          }
+    
+          // Populate search bar and apply filter if "search" parameter exists
+          let searchQuery = getQueryParam("search");
+          if (searchQuery) {
+              $("#search").val(searchQuery);
+              filterPapers(searchQuery); // Directly apply the filter
+          }
+    
+          // Attach event listener for manual searches
+          $("#search").on("input", function () {
+              filterPapers($(this).val());
+          });
+
+          // Add click event to badge elements
+          $(".badge.badge-secondary").on("click", function () {
+              let keyword = $(this).text().trim();
+              $("#search").val(keyword).trigger("input"); // Update search bar and trigger filtering
+          });
+
+          // Clear search when "Clear" button is clicked
+          $("#clear-search").on("click", function () {
+              $("#search").val("").trigger("input"); // Clear input and reset filter
+          });
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- Nav Bar -->
+    <!-- TODO(ruipan): figure out how to align the nav items to the right rather than the left -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top navbar-custom" style="background-color: #f58025">
+        <a class="navbar-brand" href="index.html">
+          <img src="./images/princeton_square.jpg" width="30" height="30" class="d-inline-block align-top">
+          SAIL@Princeton
+        </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a class="nav-link" href="index.html#projects">Projects</a>
+          </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a class="nav-link" href="people.html">People</a>
+          </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a class="nav-link" href="publications.html">Publications</a>
+          </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+
+            <a class="nav-link" href="blogs.html">Blogs</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid text-center">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-sm-12">
+            <h2 class="jumbotron-heading">Blogs of SAIL@Princeton</h2>
+            <p class="lead">Blogs written by SAIL@Princeton members. They highlight key innovations, practical implications, and performance insights that go beyond what’s captured in academic papers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+<div class="blog-preview">
+  <div class="post">
+    <a href="blogs/memory_bound_kernels_blog.html" class="post-title">
+      Getting Memory-bound Kernels to Speed-of-Light
+    </a>
+    <div class="post-description">
+      A walkthrough of memory-bound GPU kernels, arithmetic intensity, and how to get near speed-of-light performance.
+    </div>
+    <div class="post-meta">
+      Wentao Guo, Ted Zadouri, Tri Dao &middot; Last updated on Jul 12, 2025 
+    </div>
+  </div>
+</div>
+
+    <!-- End-of-the-page jumbotron -->
+    <div class="jumbotron text-center" style="padding-top: 10px; padding-bottom: 10px; margin-bottom:0">
+      <div class="container">
+        <div class="col-sm-12">
+          <a href="https://github.com/SysML-Princeton" class="smlinks" target="_blank"><i class="fab fa-github-square fa-2x"></i></a>
+        </div>
+      </div>
+      <p>@ 2025 SAIL@Princeton. Powered by Bootstrap.</p>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
