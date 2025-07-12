@@ -1,0 +1,1057 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+    <!-- Font Awesome for social media icons -->
+    <script src="https://kit.fontawesome.com/791291c78f.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <!-- Site Information -->
+    <title> SAIL@Princeton </title>
+
+    <style type="text/css">
+      .smlinks {
+        color: black;
+      }
+      .smlinks:hover {
+        color: rgb(7, 107, 255);
+      }
+      .paper-item {
+        margin-bottom: 15px; /* Adjust this value to increase/decrease the space */
+      }
+      .badge.badge-secondary {
+        cursor: pointer;
+      }
+      figure {
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      img {
+        max-width: 50%;
+        height: auto;
+      }
+
+      figcaption {
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      </style>
+    <!-- Favicon -->
+    <!-- TODO(ruipan): we could add a favicon of the website here -->
+    <!-- https://realfavicongenerator.net/ -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff"> -->
+    
+    <!-- Functionality for searching papers -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+          // Function to get URL parameters
+          function getQueryParam(name) {
+              let urlParams = new URLSearchParams(window.location.search);
+              return urlParams.get(name) || "";
+          }
+    
+          // Function to perform search
+          function filterPapers(query) {
+              query = query.toLowerCase();
+              $(".paper-item").each(function () {
+                  let text = $(this).text().toLowerCase();
+                  $(this).closest("li").toggle(text.includes(query));
+              });
+          }
+    
+          // Populate search bar and apply filter if "search" parameter exists
+          let searchQuery = getQueryParam("search");
+          if (searchQuery) {
+              $("#search").val(searchQuery);
+              filterPapers(searchQuery); // Directly apply the filter
+          }
+    
+          // Attach event listener for manual searches
+          $("#search").on("input", function () {
+              filterPapers($(this).val());
+          });
+
+          // Add click event to badge elements
+          $(".badge.badge-secondary").on("click", function () {
+              let keyword = $(this).text().trim();
+              $("#search").val(keyword).trigger("input"); // Update search bar and trigger filtering
+          });
+
+          // Clear search when "Clear" button is clicked
+          $("#clear-search").on("click", function () {
+              $("#search").val("").trigger("input"); // Clear input and reset filter
+          });
+      });
+    </script>
+</head>
+
+<body>
+
+
+    <!-- Nav Bar -->
+    <!-- TODO(ruipan): figure out how to align the nav items to the right rather than the left -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top navbar-custom" style="background-color: #f58025">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../images/princeton_square.jpg" width="30" height="30" class="d-inline-block align-top">
+          SAIL@Princeton
+        </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a class="nav-link" href="../index.html#projects">Projects</a>
+          </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a class="nav-link" href="../people.html">People</a>
+          </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+            <a class="nav-link" href="../publications.html">Publications</a>
+          </li>
+          <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+
+            <a class="nav-link" href="../blogs.html">Blogs</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+<center>
+<h1 id="getting-memory-bound-kernels-to-speed-of-light">Getting
+Memory-bound Kernels to Speed-of-Light</h1>
+</center>
+<center>
+<p>Wentao Guo, Ted Zadouri, Tri Dao</p>
+</center>
+<div data-align="center">
+<figure>
+<img
+  src="bf16_kernel_benchmarks_single_row.svg"
+  >
+</figure>
+</div>
+<p>To make GPUs go brrr for both model training and inference, one has
+to optimize both compute-bound kernels (e.g. matmul, attention) and
+memory-bound kernels (pretty much everything else, such as elementwise,
+normalization, loss). <a
+href="https://docs.nvidia.com/cuda/cublas/">Matmul</a> and <a
+href="https://github.com/Dao-AILab/flash-attention/tree/main">attention</a>
+are already some of the most heavily optimized subroutines that we have.
+Here we instead focus on memory-bound kernels, where most of the time is
+spent on memory access (IO) instead of on actual computation. By
+understanding and exploiting the thread and memory hierarchy on modern
+accelerators, we can get these kernels to close to speed-of-light (as
+fast as theoretically possible). Thanks to the recent <a
+href="https://docs.nvidia.com/cutlass/media/docs/pythonDSL/cute_dsl_general/dsl_introduction.html">CuTe-DSL</a>,
+we can do so right in the comfort of an ergonomic Python environment,
+without having to touch CUDA C or C++.</p>
+<p>For memory-bound kernels, the ratio between the number of
+Floating-point Operations (FLOPs) consumed and the number of bytes
+transferred is small (such ratio is called Arithmetic Intensity). Once a
+kernel’s arithmetic intensity enters the memory-bound regime, the
+kernel’s throughput is determined by how many bytes/second the kernel
+can deliver rather than by FLOPs/second the kernel computes.</p>
+<div data-align="center">
+<figure>
+<img
+  src="our-16k-131k-arithmetic-intensity-white.png"
+  alt="Arithmetic intensity of a memory-bound softmax kernel is O(1)">
+<figcaption>
+Arithmetic intensity of a memory-bound softmax kernel is O(1)
+</figcaption>
+</figure>
+</div>
+<p>Within the memory-bound kernels, elementwise activation is usually
+easier to deal with — it is inherently perfectly parallel as there are
+no dependencies across the elements. However, reduction operations are
+also prevalent in DL operators such as softmax and RMSNorm, and they
+require an aggregation of all values. A parallel associative reduction
+algorithm will execute O(log(#reduced dim)) rounds of partial reduction
+across threads in different spatiality where our knowledge of GPU memory
+hierarchy would help.</p>
+<div data-align="center">
+<figure>
+<img
+  src="max_reduction.png"
+  alt="Parallel maximum reduction">
+<figcaption>
+Parallel maximum reduction [1]
+</figcaption>
+</figure>
+</div>
+<p>In this blogpost, we describe how we can leverage the GPU memory
+hierarchy to implement efficient reduction kernels. As an example, we
+use CuTe DSL to implement 3 commonly used kernels in Large Language
+Models: RMSNorm, softmax, and cross entropy loss. We want to hit the
+maximum hardware throughput, or “GPU speed-of-light throughput”, and we
+need 2 ingredients: (1) global memory coalesce load/store (2)
+hardware-aware reduction strategy. As a bonus, we’ll also explain
+cluster reduction, a relatively new feature on Nvidia GPUs starting with
+Hopper (H100), and how that helps with very large reductions. This
+blogpost will explain the details of these ingredients and flesh out how
+they allow us to write speed-of-light kernels. Let’s start our
+journey!</p>
+<div data-align="center">
+<figure>
+<img
+  src="QuACK.png"
+  >
+</figure>
+</div>
+<p>Our code can be found at 🦆 <a
+href="https://github.com/Dao-AILab/quack"
+class="uri">https://github.com/Dao-AILab/quack</a> 🦆</p>
+<h2 id="gpu-memory-hierarchy">GPU Memory Hierarchy</h2>
+<p>Before we start to write the kernel code, we should first understand
+the modern GPU memory hierarchy. For now let’s focus on Hopper
+architecture GPU (e.g. H100) as an example.</p>
+<p>On Hopper GPUs, the CUDA execution hierarchy now spans four tiers:
+<strong>threads</strong>, <strong>thread blocks</strong>, the new
+<strong>thread block cluster</strong>, and the full grid. Individual
+threads are executed in groups of <strong>32-lane (each lane being a
+thread) warps</strong> inside a Streaming Multiprocessor (SM); each
+thread block enjoys a unified 192-256 KB shared memory (SMEM) that all
+warps within the same thread block have access. H100’s thread cluster
+allows up to 16 thread blocks running on neighboring SMs to read, write,
+and perform atomics in one another’s shared memory via the Distributed
+Shared Memory (DSMEM) fabric. This is coordinated via low-latency
+cluster barriers and thus avoiding costly global-memory round-trips.</p>
+<p>Every tier of memory has a read &amp; write primitive available for
+local reduction. We will therefore develop a general reduction template
+in CuTe DSL and achieve speed-of-light throughput on H100 consistently
+across reduction dimensions from 256 to 262k.</p>
+<div data-align="center">
+<figure>
+<img
+  src="gpu-memory-hierarchy.png"
+  alt="Memory Hierarchy in H100 [2]">
+<figcaption>
+Memory Hierarchy in H100 [2]
+</figcaption>
+</figure>
+</div>
+<center>
+Hopper GPU’s Execution Granularity Meets Memory Hierarchy
+</center>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr>
+<th>Execution Granularity</th>
+<th>Operating Memory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Threads</td>
+<td>Registers (1st memory tier)</td>
+<td>Each thread can own up to 255 registers.</td>
+</tr>
+<tr>
+<td>Warps</td>
+<td>Registers (1st memory tier)</td>
+<td>Each warp has 32 consecutive threads, and it is the smallest
+parallel execution unit. Within the same warp, each thread can fetch
+registers owned by other threads via warp shuffle.</td>
+</tr>
+<tr>
+<td>Thread Blocks</td>
+<td>Shared Memory (2nd memory tier)</td>
+<td>Each thread block can contain up to 1024 threads or 16 warps. All
+threads within each thread block are executed on the same SM and can
+read/write to the same shared memory.</td>
+</tr>
+<tr>
+<td>Thread Block Clusters</td>
+<td>Distributed Shared Memory (3rd memory tier)</td>
+<td>Neighboring (up to 16) thread blocks can read and write to others’
+shared memory via a dedicated SM-to-SM network. This abstraction is
+“distributed shared memory”.</td>
+</tr>
+<tr>
+<td>Grids</td>
+<td>Global Memory</td>
+<td>All threads within the same kernel can read and write to the global
+memory.</td>
+</tr>
+</tbody>
+</table>
+<p>Each memory tier has distinct memory access latency and bandwidth.
+For example, it usually takes a few ns to access thread-owned registers,
+and ~10-20 ns for accessing shared memory. We will then see a
+significant jump in latency for L2 (~150-200 ns), and finally ~400ns for
+accessing DRAM. Similarly, for device-wide bandwidth, we usually observe
+&gt;100 TB/s for accessing registers, ~20-30 TB/s for accessing SMEM,
+~5-10 TB/s for accessing L2, and for memory-bound kernel, H100 HBM3’s
+3.35 TB/s throughput is usually the bottleneck. To fully utilize our
+hardware, we should design our memory-bound kernels following the memory
+hierarchy: we preferably allocate most local reduction on higher memory
+level, and only forward on the small amount of locally-reduced values to
+the next memory level. Chris Fleetwood has a similar illustration on the
+latency of memory access in A100 (without thread block cluster) in his
+<a
+href="https://fleetwood.dev/posts/domain-specific-architectures">blogpost</a>
+[3], and H100 adds an extra memory hierarchy abstraction between SMEM
+and GMEM.</p>
+<div data-align="center">
+<figure>
+<img
+  src="memory-access-hierarchy.png"
+  alt="Latency of Memory Access in H100 [4]">
+<figcaption>
+Latency of Memory Access in H100 [4]
+</figcaption>
+</figure>
+</div>
+<h2 id="hardware-aware-load-store-strategy">Hardware-aware load &amp;
+store strategy</h2>
+<p>Once we start to write the kernel code, the very first problem is
+always “how should we load the inputs and store the results?” For
+memory-bound kernels, the HBM’s 3.35 TB/s is usually the bottleneck,
+which means <strong>we need to squeeze out every possible cent in the
+load &amp; store strategy</strong>.</p>
+<p>Before we launch our kernels, we will first partition our input data
+by a certain <strong>Thread-Value Layout</strong> (TV-layout) (more
+information in the CuTe-DSL example <a
+href="https://github.com/NVIDIA/cutlass/blob/main/examples/python/CuTeDSL/notebooks/elementwise_add.ipynb">here</a>).
+This determines how values across the reduction dimension will be loaded
+and handled by each thread.</p>
+<p>As each thread will load the value from global memory (GMEM), we
+should ensure that each load carries the largest number of copy bits
+contiguously in the hardware. This technique is usually called memory
+coalescing or coalesced access to global memory, and the CUDA Best
+Practice Guide explains this concept in more detail [5].</p>
+<div data-align="center">
+<figure>
+<img
+  src="warp_storage.png"
+  alt="Coalesced memory access [5]">
+<figcaption>
+Coalesced memory access [5]
+</figcaption>
+</figure>
+</div>
+<p>In H100 this means each thread will hold a multiple of 128 bits = 4x
+FP32 or 8x BF16 values. So for FP32, this will group, or “vectorize,” 4
+load &amp; store transactions into a single memory transaction and
+maximize the throughput.</p>
+<p>We will asynchronously load from GMEM to SMEM, and then vectorize the
+load to registers. After the final reduced result is available, we will
+directly store it to GMEM. Sometimes, we can reload inputs from
+GMEM/SMEM to registers to relieve the register usage, and prevent
+unnecessary <a
+href="https://developer.download.nvidia.com/CUDA/training/register_spilling.pdf">register
+spilling</a>.</p>
+<p>The code snippet below is our load implementation in Python CuTe DSL.
+Here we omit the data type conversion and masking predicates for
+simplicity.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># blkX: logical id -&gt; address</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>blkX <span class="op">=</span> ...</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># allocate shared memory for the input vectors</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>smem <span class="op">=</span> cutlass.utils.SmemAllocator()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sX   <span class="op">=</span> smem.allocate_tensor(gX.element_type, ...)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># declare the copy atoms which will be used later for memory copy</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>copy_atom_load_X_async <span class="op">=</span> cute.make_copy_atom(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                                cute.nvgpu.cpasync.CopyG2SOp(),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                                gX.element_type, num_bits_per_copy<span class="op">=</span><span class="dv">128</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create a tiled type given a TV partitioner and tiler</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>thr_copy_X_async <span class="op">=</span> cute.make_tiled_copy(copy_atom_load_X_async,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                        tv_layout,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                                        tiler_mn).get_slice(tidx)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># partition the inputs in gmem and smem with TV layout and tiler</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>tXgX <span class="op">=</span> thr_copy_X_async.partition_S(blkX)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>tXsX <span class="op">=</span> thr_copy_X_async.partition_S(sX)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># allocate registers</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>tXrX <span class="op">=</span> cute.make_fragment_like(tXgX)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># asynchronously copy inputs from gmem to smem</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>cute.copy(copy_atom_load_X_async, tXgX, tXsX)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># commit and wait until current async copy op finishes</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>cute.arch.cp_async_commit_group()</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>cute.arch.cp_async_wait_group(<span class="dv">0</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># copy from smem to registers</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>cute.autovec_copy(tXsX, tXrX)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> tXrX.load()</span></code></pre></div>
+<h2 id="hardware-aware-reduction-strategy">Hardware-aware reduction
+strategy</h2>
+<p>After each thread holds a small input vector, we will start reducing
+them! Every reduction involves one or multiple full-row scans. Recall
+the fact that, going from top to bottom of the memory hierarchy, we have
+longer access latency and less bandwidth. We should perform a reduction
+that follows such hardware memory hierarchy: aggregate partial results
+as soon as they are resident in a higher tier of the memory pyramid and
+only forward the values reduced locally to the next memory tier.</p>
+<p>We will reduce the values from top to bottom in the following table,
+and each step we will only load &amp; store in the corresponding memory
+hierarchy.</p>
+<center>
+Reduction strategy in different memory hierarchies
+</center>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 37%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>Execution Granularity</th>
+<th>Operating Memory</th>
+<th>Reduction Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Threads</td>
+<td>Registers</td>
+<td>Thread reduction</td>
+</tr>
+<tr>
+<td>Warps</td>
+<td>Registers</td>
+<td>Warp reduction</td>
+</tr>
+<tr>
+<td>Thread Blocks</td>
+<td>Shared Memory</td>
+<td>Block reduction</td>
+</tr>
+<tr>
+<td>Thread Block Clusters</td>
+<td>Distributed Shared Memory</td>
+<td>Cluster reduction</td>
+</tr>
+<tr>
+<td>Grids</td>
+<td>Global Memory</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="thread-reduction-read-and-write-to-registers">1. Thread
+reduction (read and write to registers)</h3>
+<p>Each thread will reduce a multiple of vectorized loaded values
+locally. We use the member function <code>TensorSSA.reduce</code> where
+we provide an associative reduction operator <code>op</code>, an initial
+value before reduction <code>init_val</code>, and our reduction
+dimension <code>reduction_profile</code>.</p>
+<div data-align="center">
+<figure>
+<img
+  src="thread_reduction.png"
+  alt="Thread reduction">
+</figure>
+</div>
+<p><strong>CuTe member function</strong>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>TensorSSA.<span class="bu">reduce</span>(op, init_val, reduction_profile)</span></code></pre></div>
+<p><strong>Our example usage</strong>:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>max_x <span class="op">=</span> x.<span class="bu">reduce</span>(cute.ReductionOp.MAX, init_val<span class="op">=</span><span class="bu">float</span>(<span class="st">&#39;-inf&#39;</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                 reduction_profile<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<h3 id="warp-reduction-read-and-write-to-registers">2. Warp reduction
+(read and write to registers)</h3>
+<p>A warp is a fixed group of 32 contiguous threads that would execute
+common instructions per cycle. (Synchronous) <strong>warp
+reduction</strong> allows each thread to read another thread’s register
+in one cycle via a dedicated shuffle network within the same warp.
+<strong>After the butterfly warp reduction (see the schematic below),
+every thread in the same warp obtains the reduced value</strong>.</p>
+<p>We define a helper function <code>warp_reduce</code> that performs
+warp reduction with “butterfly” reduction order. We will refer readers
+to the CUDA blog written by Yuan and Vinod [6] that explains warp-level
+primitives in detail.</p>
+<p><strong>Our helper function</strong>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@cute.jit</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> warp_reduce(val: cute.Numeric,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                op: Callable,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                width: cutlass.Constexpr <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> cute.Numeric:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(math.log2(width))):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># cute.arch.shuffle_sync_bfly will read from another thread&#39;s registers</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        val <span class="op">=</span> op(val, cute.arch.shuffle_sync_bfly(val, offset<span class="op">=</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> i))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> val</span></code></pre></div>
+<p><strong>Our example usage</strong>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>   max_x  <span class="op">=</span> x.<span class="bu">reduce</span>(cute.ReductionOp.MAX, init_val<span class="op">=</span><span class="bu">float</span>(<span class="st">&#39;-inf&#39;</span>),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                     reduction_profile<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   max_x  <span class="op">=</span> warp_reduce(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        max_x, cute.arch.fmax,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        width<span class="op">=</span><span class="dv">32</span>, <span class="co"># every thread in a warp will participate in the warp reduction</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div data-align="center">
+<figure>
+<img
+  src="warp_reduction.png"
+  alt="Butterfly warp reduction, also named “xor warp shuffle” [7]">
+<figcaption>
+Butterfly warp reduction, also named “xor warp shuffle” [7]
+</figcaption>
+</figure>
+</div>
+<h3 id="block-reduction-read-and-write-to-shared-memory">3. Block
+reduction (read and write to shared memory)</h3>
+<p>A thread block usually composes multiple (up to 32 in H100) warps
+inside a thread block. In a block reduction, the first thread from each
+participating warp will write their warp-reduced value to a reduction
+buffer pre-allocated on the shared memory. After a block-level
+synchronization (barrier) that ensures every participating warp has
+finished writing, the top-laned threads of each warp will then read from
+the reduction buffer, and calculate the block-reduced value locally.</p>
+<p><strong>Our helper function</strong>:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">@cute.jit</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> block_reduce(val: cute.Numeric,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                 op: Callable,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                 reduction_buffer: cute.Tensor,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                 init_val: cute.Numeric <span class="op">=</span> <span class="fl">0.0</span>) <span class="op">-&gt;</span> cute.Numeric:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    lane_idx, warp_idx <span class="op">=</span> cute.arch.lane_idx(), cute.arch.warp_idx()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    warps_per_row      <span class="op">=</span> reduction_buffer.shape[<span class="dv">1</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    row_idx, col_idx  <span class="op">=</span> warp_idx <span class="op">//</span> warps_per_row, warp_idx <span class="op">%</span> warps_per_row</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lane_idx <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># thread in lane 0 of each warp will write the warp-reduced value to the reduction buffer</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        reduction_buffer[row_idx, col_idx] <span class="op">=</span> val</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># synchronize the write results</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    cute.arch.barrier()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    block_reduce_val <span class="op">=</span> init_val</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lane_idx <span class="op">&lt;</span> warps_per_row:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># top-laned threads of each warp will read from the buffer</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        block_reduce_val <span class="op">=</span> reduction_buffer[row_idx, lane_idx]</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># then warp-reduce to get the block-reduced result</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> warp_reduce(block_reduce_val, op)</span></code></pre></div>
+<p><strong>Our example usage</strong>:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>max_x <span class="op">=</span> block_reduce(max_x, cute.arch.fmax, max_val_reduction_buffer,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                     init_val<span class="op">=</span>max_x)</span></code></pre></div>
+<div data-align="center">
+<figure>
+<img
+  src="block_reduction.png"
+  >
+</figure>
+</div>
+<h3
+id="cluster-reduction-read-and-write-to-distributed-shared-memory">4.
+Cluster reduction (read and write to distributed shared memory)</h3>
+<p>Thread block cluster is a newly introduced execution hierarchy in
+Hopper as a group of neighboring thread blocks (up to 16). Thread blocks
+within the same cluster will communicate with each other via distributed
+shared memory (DSMEM) that contains a dedicated fast SM-to-SM
+network.</p>
+<p>Within the same cluster, all the threads can access other SM’s shared
+memory via DSMEM where the shared memory’s virtual address space is
+logically distributed across all the blocks in the cluster. DSMEM can be
+referenced directly with simple pointers.</p>
+<div data-align="center">
+<figure>
+<img
+  src="dsmem.png"
+  alt="Distributed shared memory [8]">
+<figcaption>
+Distributed shared memory [8]
+</figcaption>
+</figure>
+</div>
+<p>In cluster reduction, we first send the current warp’s reduced value
+to all the peer thread block’s reduction buffer in peer’s SMEM. Such
+sending is conducted via a dedicated SM-to-SM fabric (as DSMEM). Then
+each warp fetches all warp’s values from their local reduction buffer,
+and reduces these values.</p>
+<p>We also need a memory barrier to count the number of arrivals so that
+we don’t dereference our local shared memory too early (otherwise we
+will have illegal memory access).</p>
+<div data-align="center">
+<figure>
+<img
+  src="cluster_reduction.png"
+  >
+</figure>
+</div>
+<p><strong>Our helper function</strong>:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dsl_user_op</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_block_rank(smem_ptr: cute.Pointer,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                   peer_block_rank_in_cluster) <span class="op">-&gt;</span> cutlass.Int32:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This instruction maps the given smem pointer to the address at another thread block’s smem in the cluster.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inline_asm(...,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;mapa.shared::cluster.u32 $0, $1, $2;&quot;</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            smem_ptr.toint(), peer_block_rank_in_cluster,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            ...</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">@dsl_user_op</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> store_shared_remote(val: <span class="bu">float</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                        smem_ptr: cute.Pointer,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                        mbar_ptr: cute.Pointer,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                        peer_block_rank_in_cluster) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># maps current reduction buffer’s pointer to the remote thread block’s SMEM addressable space.</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    remote_smem_ptr_i32 <span class="op">=</span> set_block_rank(</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        smem_ptr, peer_block_rank_in_cluster</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    remote_mbar_ptr_i32 <span class="op">=</span> set_block_rank(</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        mbar_ptr, peer_block_rank_in_cluster</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># asynchronously stores current warp’s reduced value `val` to the remote thread block’s reduction buffer.</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    inline_asm(...,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;st.async.shared::cluster.mbarrier::complete_tx::bytes.f32 [$0], $1, [$2];&quot;</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        remote_smem_ptr_i32, val, remote_mbar_ptr_i32,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="at">@cute.jit</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cluster_reduce(val: cute.Numeric,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                   op: Callable,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                   reduction_buffer: cute.Tensor,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                   mbar_ptr: cute.Pointer,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                   init_val: cute.Numeric <span class="op">=</span> <span class="fl">0.0</span>) <span class="op">-&gt;</span> cute.Numeric:</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    block_rank_in_cluster    <span class="op">=</span> cute.arch.block_idx_in_cluster()</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    lane_idx, warp_idx       <span class="op">=</span> cute.arch.lane_idx(), cute.arch.warp_idx()</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    warps_per_row, cluster_n <span class="op">=</span> reduction_buffer.shape[<span class="dv">1</span>]</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    row_idx, col_idx <span class="op">=</span> warp_idx <span class="op">//</span> warps_per_row, warp_idx <span class="op">%</span> warps_per_row</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lane_idx <span class="op">&lt;</span> cluster_n:</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># `store_shared_remote` lets each top-laned write the warp-reduced value to cluster idx</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>        store_shared_remote(</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>            val,</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>            <span class="co"># `elem_pointer` calculates the pointer offset that we should write in another thread block</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>            elem_pointer(reduction_buffer,</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>                        (row_idx, (col_idx, block_rank_in_cluster))),</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>            mbar_ptr, peer_cta_rank_in_cluster<span class="op">=</span>lane_idx</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>   <span class="co"># ensure all participating warps have written the results</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    cute.arch.mbarrier_wait(mbar_ptr, phase<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    block_reduce_val <span class="op">=</span> init_val</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>    num_iter <span class="op">=</span> cute.ceil_div(warps_per_row <span class="op">*</span> cluster_n, <span class="dv">32</span>)</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> cutlass.range_constexpr(num_iter):</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> lane_idx <span class="op">+</span> i <span class="op">*</span> <span class="dv">32</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> idx <span class="op">&lt;</span> cute.size(reduction_buffer, mode<span class="op">=</span>[<span class="dv">1</span>]):</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>            <span class="co"># each lane reduces across the reduction buffer</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>            block_reduce_val <span class="op">=</span> op(block_reduce_val,</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>                                   reduction_buffer[row_idx, idx])</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># warp reduce to obtain the final cluster-reduced result</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> warp_reduce(block_reduce_val, op)</span></code></pre></div>
+<p><strong>Our example usage</strong>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>max_val_mbar_ptr <span class="op">=</span> smem.allocate(<span class="dv">8</span>, byte_alignment<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> tidx <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     cute.arch.mbarrier_init(max_val_mbar_ptr, <span class="dv">1</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>cute.arch.mbarrier_init_fence()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> tidx <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># initialize memory barrier transaction counter.</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    cute.arch.mbarrier_arrive_and_expect_tx(max_val_mbar_ptr, num_warps <span class="op">*</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                                            cluster_n <span class="op">*</span> <span class="dv">4</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># send an “arrive” signal after barrier init</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    cute.arch.cluster_arrive_relaxed()</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>......</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># wait until all warps in the cluster have initialized their local reduction buffer in their SMEM.</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>cute.arch.cluster_wait()</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>max_x <span class="op">=</span> cluster_reduce(max_x, cute.arch.fmax, max_val_reduction_buffer,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                       max_val_mbar_ptr, init_val<span class="op">=</span>max_x)</span></code></pre></div>
+<h3 id="reduction-from-top-to-bottom">Reduction from top to bottom</h3>
+<p>Let’s put it together! We will first perform thread reduction, and
+aggregate our thread-reduced result within the same warp (warp
+reduction), and forward the reduced value again on each thread block or
+cluster depending on the number of reduction dimensions.</p>
+<p><strong>Our example usage</strong>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load from GMEM to the thread-owned registers</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>x           <span class="op">=</span> tXrX.load().to(cute.Float32)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># thread reduction</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>max_x       <span class="op">=</span> x.<span class="bu">reduce</span>(cute.ReductionOp.MAX,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                       init_val<span class="op">=</span><span class="bu">float</span>(<span class="st">&#39;-inf&#39;</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                       reduction_profile<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># warp reduction</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>max_x       <span class="op">=</span> warp_reduce(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    max_x, cute.arch.fmax,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> cutlass.const_expr(warps_per_row <span class="op">*</span> cluster_n) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># more than 1 warp per row, block or cluster reduction is needed!</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cutlass.const_expr(cluster_n) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># block reduction</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        max_x <span class="op">=</span> block_reduce(max_x, cute.arch.fmax,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                             max_val_reduction_buffer,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                             init_val<span class="op">=</span>max_x)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># cluster reduction</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        max_x <span class="op">=</span> cluster_reduce(max_x, cute.arch.fmax,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                               max_val_reduction_buffer,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                               max_val_mbar_ptr,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                               init_val<span class="op">=</span>max_x)</span></code></pre></div>
+<h2 id="ncu-profile-softmax-kernel">NCU profile (softmax kernel)</h2>
+<h3 id="our-implementation">Our implementation</h3>
+<p>We profile our softmax kernel implementation with batch dim=16K,
+reduction dim=131K in NVIDIA H100 with HBM3 (DRAM peak throughput = 3.35
+TB/s) [8]. The memory workload diagrams are generated from <a
+href="https://docs.nvidia.com/nsight-compute/NsightComputeCli/index.html">Nsight
+Compute</a>. We use a thread block cluster with size 4, 256 threads per
+thread block, and we use FP32 for the input data type. The load &amp;
+store is vectorized with each instruction carrying 128 bits (4 FP32
+values).</p>
+<p>We achieve DRAM throughput (device memory throughput) at 3.01 TB/s
+which is 89.7% of the peak DRAM throughput. We also use DSMEM
+effectively besides SMEM.</p>
+<div data-align="center">
+<figure>
+<img
+  src="our-16k-131k.png"
+  alt="Our implementation’s memory workload diagram">
+<figcaption>
+Our implementation’s memory workload diagram
+</figcaption>
+</figure>
+</div>
+<h3 id="torch-compile">Torch compile</h3>
+<p>We also compare our implementation with torch.compile (PyTorch
+version 2.7.1). We first obtain torch.compile’s generated Triton kernel
+codes as below.</p>
+<p>This kernel implements softmax with 2 global memory loads (one load
+each when calculating row-wise max and partial exponential sums, and
+final softmax value) and 1 store. In this case, although this triton
+kernel still saturates the hardware DRAM throughput, the unnecessary 1
+load would still cause the triton kernel’s effective model memory
+throughput (~2.0 TB/s) to be <strong>two-third</strong> of our impl’s
+(~3.0 TB/s).</p>
+<p>Torch.compile’s generated Triton kernel (tuning config omitted)</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="at">@triton.jit</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> triton_red_fused__softmax_0(in_ptr0, out_ptr2, xnumel, r0_numel,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                           XBLOCK : tl.constexpr, R0_BLOCK : tl.constexpr):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    xnumel <span class="op">=</span> <span class="dv">16384</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    r0_numel <span class="op">=</span> <span class="dv">131072</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    rnumel <span class="op">=</span> r0_numel</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    RBLOCK: tl.constexpr <span class="op">=</span> R0_BLOCK</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    xoffset <span class="op">=</span> tl.program_id(<span class="dv">0</span>).to(tl.int64) <span class="op">*</span> XBLOCK</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    xindex <span class="op">=</span> xoffset <span class="op">+</span> tl.arange(<span class="dv">0</span>, XBLOCK)[:, <span class="va">None</span>].to(tl.int64)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    xmask <span class="op">=</span> tl.full([XBLOCK, R0_BLOCK], <span class="va">True</span>, tl.int1)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    r0_base <span class="op">=</span> tl.arange(<span class="dv">0</span>, R0_BLOCK)[<span class="va">None</span>, :].to(tl.int64)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    rbase <span class="op">=</span> r0_base</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    x0 <span class="op">=</span> xindex</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    _tmp2_max <span class="op">=</span> tl.full([XBLOCK, R0_BLOCK], <span class="bu">float</span>(<span class="st">&#39;-inf&#39;</span>), tl.float32)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    _tmp2_sum <span class="op">=</span> tl.zeros([XBLOCK, R0_BLOCK], tl.float32)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r0_offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, r0_numel, R0_BLOCK):</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        r0_index <span class="op">=</span> r0_offset <span class="op">+</span> r0_base</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        r0_mask <span class="op">=</span> tl.full([XBLOCK, R0_BLOCK], <span class="va">True</span>, tl.int1)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        roffset <span class="op">=</span> r0_offset</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        rindex <span class="op">=</span> r0_index</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        r0_1 <span class="op">=</span> r0_index</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        tmp0 <span class="op">=</span> tl.load(in_ptr0 <span class="op">+</span> (r0_1 <span class="op">+</span> <span class="dv">131072</span><span class="op">*</span>x0), <span class="va">None</span>, eviction_policy<span class="op">=</span><span class="st">&#39;evict_last&#39;</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        tmp1 <span class="op">=</span> tl.broadcast_to(tmp0, [XBLOCK, R0_BLOCK])</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        _tmp2_max_next, _tmp2_sum_next <span class="op">=</span> triton_helpers.online_softmax_combine(</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>             _tmp2_max, _tmp2_sum, tmp1, <span class="va">False</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>        _tmp2_max <span class="op">=</span> _tmp2_max_next</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>        _tmp2_sum <span class="op">=</span> _tmp2_sum_next</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    tmp4, tmp5 <span class="op">=</span> triton_helpers.online_softmax_reduce(</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>        _tmp2_max, _tmp2_sum, <span class="dv">1</span>, <span class="va">False</span>)</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    tmp4 <span class="op">=</span> tmp4[:, <span class="va">None</span>]</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    tmp5 <span class="op">=</span> tmp5[:, <span class="va">None</span>]</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    tmp2 <span class="op">=</span> tmp4</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    tmp3 <span class="op">=</span> tmp5</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r0_offset <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, r0_numel, R0_BLOCK):</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        r0_index <span class="op">=</span> r0_offset <span class="op">+</span> r0_base</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        r0_mask <span class="op">=</span> tl.full([XBLOCK, R0_BLOCK], <span class="va">True</span>, tl.int1)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>        roffset <span class="op">=</span> r0_offset</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>        rindex <span class="op">=</span> r0_index</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>        r0_1 <span class="op">=</span> r0_index</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>        tmp6 <span class="op">=</span> tl.load(in_ptr0 <span class="op">+</span> (r0_1 <span class="op">+</span> <span class="dv">131072</span><span class="op">*</span>x0), <span class="va">None</span>, eviction_policy<span class="op">=</span><span class="st">&#39;evict_first&#39;</span>)</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>        tmp7 <span class="op">=</span> tmp6 <span class="op">-</span> tmp2</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>        tmp8 <span class="op">=</span> tl_math.exp(tmp7)</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>        tmp9 <span class="op">=</span> (tmp8 <span class="op">/</span> tmp3)</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>        tl.store(out_ptr2 <span class="op">+</span> (r0_1 <span class="op">+</span> <span class="dv">131072</span><span class="op">*</span>x0), tmp9, <span class="va">None</span>)</span></code></pre></div>
+<h2 id="memory-throughput">Memory throughput</h2>
+<p>We benchmark our RMSNorm, softmax, cross entropy loss kernel as
+below. The benchmark is still conducted on 1 NVIDIA H100 80GB with HBM3
+with Intel Xeon Platinum 8468 CPU.</p>
+<p>We use a batch size from 8k to 32k, and a reduction dimension from
+256 to 256 * 1024 = 262k with input data type as FP32 and BF16. Our
+baselines are listed below: - Torch.compile (PyTorch 2.7.1). We use the
+default mode for compilation. - Liger kernel v0.5.10. [13] We only
+benchmark RMSNorm and softmax up to a reduction dim 65k as the larger
+size is not supported yet by the Liger kernel. - <a
+href="https://docs.nvidia.com/deeplearning/cudnn/latest/">cuDNN</a>
+v9.10.1. We only benchmark the RMSNorm kernel.</p>
+<p>Our impl in CuTe DSL generally maintains a model memory throughput
+about 3 TB/s (~90% peak) for a reduction dimension larger than 4k, and
+<strong>achieves nearly 50% more throughput (e.g., 3.01 TB/s vs 1.89
+TB/s for FP32 softmax)</strong> compared to torch.compile when reduction
+dimension is 262k. <strong>Our impl also significantly outperforms all
+baselines when reduction dim &gt;= 65k for all 3 kernels</strong>.</p>
+<div data-align="center">
+<figure>
+<img
+  src="combined_kernel_benchmarks_final.png"
+  alt="Model memory throughput of multiple kernels">
+<figcaption>
+Model memory throughput of multiple kernels
+</figcaption>
+</figure>
+</div>
+<p><strong>We believe our outstanding performance at &gt;= 65k input is
+due to our successful utilization of cluster reduction in H100</strong>.
+When the size of inputs are ultra long and depleting the SM’s registers
+and shared memory, without cluster reduction, we would have to switch to
+an online algorithm (like online softmax) otherwise we may get a massive
+register spilling that leads to significant throughput degradation.</p>
+<p>For example, we observe a significant performance degradation from
+~3.0 TB/s to ~2.0 TB/s when we increase the input size from 32k to 65k
+with the Liger softmax kernel. By analyzing its memory workload chart
+and SASS code profile in NCU, we believe that a massive register
+spilling occurs with abnormally cascading write back to HBM as we are
+depleting each SM’s resources when we load 65k input per SM.</p>
+<div data-align="center">
+<figure>
+<img
+  src="liger-16k-65k-ncu.png"
+  alt="Liger softmax kernel’s memory workload at batch, reduce dim (16k, 65k) with FP32">
+<figcaption>
+Liger softmax kernel’s memory workload at batch, reduce dim (16k, 65k)
+with FP32
+</figcaption>
+</figure>
+</div>
+<div data-align="center">
+<figure>
+<img
+  src="liger-16k-65k.png"
+  alt="Liger softmax kernel’s register spills in assembly (LDL instruction)">
+<figcaption>
+Liger softmax kernel’s register spills in assembly (LDL instruction)
+</figcaption>
+</figure>
+</div>
+<p>However, cluster reduction allows multiple SMs to coordinate with
+each other and share their individual SM to form a “mega” SM (DSMEM).
+<strong>Suppose one SM can only handle 32k inputs, a cluster with size
+16 will allow us to handle 0.5M input without reloading from GMEM. As we
+have a clear understanding of hardware knowledge, we can easily squeeze
+every byte from all memory hierarchies and achieve “speed-of-light”
+throughput even with the vanilla 3-pass softmax</strong>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Hitting “speed-of-light” model memory throughput confirms that a
+carefully hand-crafted CuTe kernel can squeeze every byte across all
+memory hierarchies in the hardware. But that efficiency comes at the
+price of per-operator and even per input-shape tuning, which imposes a
+natural tradeoff between efficiency and development efforts. Phil Tillet
+(Triton author) articulates this really well with this figure in his <a
+href="https://semianalysis.com/wp-content/uploads/2025/03/Blackwell-Programming-for-the-Masses-With-OpenAI-Triton-Phil-Tillet.pdf">talk</a>.
+In our experience with CuTe-DSL, it has offered both the productivity of
+Python with the control and performance of CUDA C++.</p>
+<div data-align="center">
+<figure>
+<img
+  src="productivity-performance.png"
+  alt="Productivity / Performance Pareto Frontier. From Phil Tillet’s talk.">
+<figcaption>
+Productivity / Performance Pareto Frontier. From Phil Tillet’s talk.
+</figcaption>
+</figure>
+</div>
+<p>We believe that an efficient GPU kernel development process could be
+automated. <strong>For example, the input tensor’s TV-layout, load/store
+strategies, and reduction helper functions in RMSNorm can be directly
+applied in the softmax kernel and still achieve similar
+throughput</strong>. Additionally, CuTe DSL would enable agile GPU
+kernel development on developer side or another codegen application
+operating on top of CuTe DSL. There is also an active research interest
+on applying LLM to auto-generate GPU kernels, and in the future, we may
+just call “LLM.compile” to generate highly-optimized GPU kernels.</p>
+<h4 id="acknowledgments">Acknowledgments</h4>
+<p>Huge thanks to the Nvidia Cutlass team for the awesome CuTe-DSL.
+Thanks to Yinwei Dai, Rui Pan, Mayank Mishra, Berlin Chen, Songlin Yang,
+and Xinyu Yang for feedback and suggestions that have improved this
+blogpost.</p>
+<h4 id="references">References</h4>
+<p>[1] Hwu, W. M. W., Kirk, D. B., &amp; Hajj, I. E. (2022). Programming
+Massively Parallel Processors: A Hands-on Approach, Fourth Edition.
+Elsevier. https://doi.org/10.1016/C2020-0-02969-5</p>
+<p>[2]
+https://docs.nvidia.com/cuda/cuda-c-programming-guide/#programming-model</p>
+<p>[3] https://fleetwood.dev/posts/domain-specific-architectures</p>
+<p>[4]
+https://chipsandcheese.com/p/nvidias-h100-funny-l2-and-tons-of-bandwidth</p>
+<p>[5]
+https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/#coalesced-access-to-global-memory</p>
+<p>[6]
+https://developer.nvidia.com/blog/using-cuda-warp-level-primitives/</p>
+<p>[7] https://people.maths.ox.ac.uk/gilesm/cuda/lecs/lec4.pdf</p>
+<p>[8]
+https://resources.nvidia.com/en-us-data-center-overview/gtc22-whitepaper-hopper</p>
+<p>[9] https://github.com/linkedin/Liger-Kernel</p>
+<h2 id="appendix">Appendix</h2>
+<h3 id="tv-layout">TV Layout</h3>
+<p>For now let’s denote M as the batch dimension (columns) and N as the
+reduction dimension (rows). We will define our TV layout that we use to
+partition the input data for gmem coalesced access as below.</p>
+<p>We first define a few input-dependent hyperparams. We usually only
+tune <code>thread_per_row</code> and <code>cluster_n</code>.</p>
+<center>
+Tunable hyperparameters
+</center>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>thread_per_row</td>
+<td># threads per row</td>
+</tr>
+<tr>
+<td>num_threads</td>
+<td># threads per thread block</td>
+</tr>
+<tr>
+<td>cluster_n</td>
+<td>Size of the thread block cluster</td>
+</tr>
+<tr>
+<td>vecsize</td>
+<td># elements per vectorized load</td>
+</tr>
+</tbody>
+</table>
+<p>And after we calculate the following 2 variables, we can derive our
+final TV-layout.</p>
+<center>
+Derived constants
+</center>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 51%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>Name</th>
+<th>Formula</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num_blocks_N</td>
+<td># rows / (vec_size * thread_per_row * cluster_n)</td>
+<td># reduced rows per thread block</td>
+</tr>
+<tr>
+<td>cols_per_block</td>
+<td>num_threads / thread_per_row</td>
+<td># columns (batch dim) handled per thread block</td>
+</tr>
+</tbody>
+</table>
+<p>This is our TV-layout.</p>
+<center>
+Layouts &amp; tiler
+</center>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 31%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>Name</th>
+<th>Formula</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thread Layout</strong></td>
+<td>(threads_per_row, cols_per_block): (vecsize × cols_per_block,
+1)</td>
+<td><br><strong>Shape</strong>: (Block N, Block M)
+<br><strong>Stride</strong>: (vecsize × Block M, 1)</td>
+</tr>
+<tr>
+<td><strong>Value Layout</strong></td>
+<td>(vecsize, num_blocks_N): (cols_per_block, cols_per_block × vecsize ×
+threads_per_row)</td>
+<td><br><strong>Shape</strong>: (vecsize, # reduced rows per thread
+block) <br><strong>Stride</strong>: (Block M, # elements per thread
+block)</td>
+</tr>
+<tr>
+<td><strong>Tiler</strong></td>
+<td>(cols_per_block, vecsize × num_blocks_N × threads_per_row)</td>
+<td>(Block M, # reduced rows per cluster)</td>
+</tr>
+</tbody>
+</table>
+<div data-align="center">
+<figure>
+<img
+  src="tv_layout.png"
+  >
+</figure>
+</div>
+
+
+    <!-- End-of-the-page jumbotron -->
+    <div class="jumbotron text-center" style="padding-top: 10px; padding-bottom: 10px; margin-bottom:0">
+      <div class="container">
+        <div class="col-sm-12">
+          <a href="https://github.com/SysML-Princeton" class="smlinks" target="_blank"><i class="fab fa-github-square fa-2x"></i></a>
+        </div>
+      </div>
+      <p>@ 2025 SAIL@Princeton. Powered by Bootstrap.</p>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</body>
