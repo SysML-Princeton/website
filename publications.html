@@ -150,38 +150,81 @@
         <div class="col-sm-12">
           <h3>Preprints</h3>
           <ul>
+
             <li class="paper-item">
-              <h5>SpecReason: Fast and Accurate Inference-Time Compute via Speculative Reasoning</h5>
-              Rui Pan, Yinwei Dai, Zhihao Zhang, Gabriele Oliaro, Zhihao Jia, Ravi Netravali <br>
+              <h5>Fail Fast, Win Big: Rethinking the Drafting Strategy in Speculative Decoding via Diffusion LLMs</h5>
+              Rui Pan, Zhuofu Chen, Hongyi Liu, Arvind Krishnamurthy, Ravi Netravali <br>
               arXiv 2025<br>
               <span class="badge badge-secondary">Efficient Inference</span>
               <span class="badge badge-secondary">Emerging Paradigms</span>
               <div class="mt-2">
-                <a href="https://arxiv.org/abs/2504.07891" target="_blank">
+                <a href="https://arxiv.org/abs/2512.20573" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#specreason-abstract" role="button" aria-expanded="false" aria-controls="specreason-abstract">Abstract</a>
-                <a href="https://github.com/ruipeterpan/specreason" target="_blank"><button type="button" class="btn btn-outline-primary btn-sm">Code</button></a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#failfast-abstract" role="button" aria-expanded="false" aria-controls="failfast-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="specreason-abstract">
+              <div class="collapse" id="failfast-abstract">
                 <div class="card card-body">
-                  Recent advances in inference-time compute have significantly improved performance on complex tasks by 
-                  generating long chains of thought (CoTs) using Large Reasoning Models (LRMs). 
-                  However, this improved accuracy comes at the cost of high inference latency due to 
-                  the length of generated reasoning sequences and the autoregressive nature of decoding. 
-                  Our key insight in tackling these overheads is that LRM inference, and the reasoning that it embeds, 
-                  is highly tolerant of approximations: complex tasks are typically broken down into simpler steps, 
-                  each of which brings utility based on the semantic insight it provides for downstream steps 
-                  rather than the exact tokens it generates. Accordingly, we introduce SpecReason, a system that 
-                  automatically accelerates LRM inference by using a lightweight model to (speculatively) carry out 
-                  simpler intermediate reasoning steps and reserving the costly base model only to assess (and potentially correct) 
-                  the speculated outputs. Importantly, SpecReason's focus on exploiting the semantic flexibility of 
-                  thinking tokens in preserving final-answer accuracy is complementary to prior speculation techniques, 
-                  most notably speculative decoding, which demands token-level equivalence at each step. Across a variety 
-                  of reasoning benchmarks, SpecReason achieves 1.5-2.5× speedup over vanilla LRM inference while 
-                  improving accuracy by 1.0-9.9%. Compared to speculative decoding without SpecReason, 
-                  their combination yields an additional 19.4-44.2% latency reduction. 
-                  We open-source SpecReason at https://github.com/ruipeterpan/specreason.
+Diffusion Large Language Models (dLLMs) offer fast, parallel token generation, but their standalone use is plagued by an inherent efficiency-quality tradeoff. We show that, if carefully applied, the attributes of dLLMs can actually be a strength for drafters in speculative decoding with autoregressive (AR) verifiers. Our core insight is that dLLM's speed from parallel decoding drastically lowers the risk of costly rejections, providing a practical mechanism to effectively realize the (elusive) lengthy drafts that lead to large speedups with speculative decoding. We present FailFast, a dLLM-based speculative decoding framework that realizes this approach by dynamically adapting its speculation length. It "fails fast" by spending minimal compute in hard-to-speculate regions to shrink speculation latency and "wins big" by aggressively extending draft lengths in easier regions to reduce verification latency (in many cases, speculating and accepting 70 tokens at a time!). Without any fine-tuning, FailFast delivers lossless acceleration of AR LLMs and achieves up to 4.9× speedup over vanilla decoding, 1.7× over the best naive dLLM drafter, and 1.4× over EAGLE-3 across diverse models and workloads. We open-source FailFast at this https URL.
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>Aragog: Just-in-Time Model Routing for Scalable Serving of Agentic Workflows</h5>
+              Yinwei Dai, Zhuofu Chen, Anand Iyer, Ravi Netravali <br>
+              arXiv 2025<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Compound AI Systems</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/abs/2511.20975" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#aragog-abstract" role="button" aria-expanded="false" aria-controls="aragog-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="aragog-abstract">
+                <div class="card card-body">
+Agentic workflows have emerged as a powerful paradigm for solving complex, multi-stage tasks, but serving them at scale is computationally expensive given the many LLM inferences that each request must pass through. Configuration selection, or the cost-aware assignment of workflow agents to specific LLMs, can reduce these costs, but existing approaches bind configuration decisions before request execution, making them ill-suited for the heterogeneous and lengthy execution of workflows. Specifically, system loads can fluctuate rapidly and substantially during a request's lifetime, causing fixed configurations to quickly become suboptimal. We present Aragog, a system that progressively adapts a request's configuration throughout its execution to match runtime dynamics. To make this practical despite the massive space of workflow configurations, Aragog decouples the problem into two core elements -- a one-time routing step that identifies all accuracy-preserving configurations, and a cheap per-stage scheduler that selects among them using up-to-date system observations -- and introduces novel strategies to accelerate each. Across diverse workflows and model families, Aragog increases maximum serving throughput by 50.0--217.0\% and reduces median latency by 32.5--78.9\% at peak request rates, while maintaining accuracy comparable to the most expensive configurations.
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>Less Is More: Training-Free Sparse Attention with Global Locality for Efficient Reasoning</h5>
+              Lijie Yang, Zhihao Zhang, Arti Jain, Shijie Cao, Baihong Yuan, Yiwei Chen, Zhihao Jia, Ravi Netravali <br>
+              arXiv 2025<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Emerging Paradigms</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/abs/2508.07101" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#lessismore-abstract" role="button" aria-expanded="false" aria-controls="lessismore-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="lessismore-abstract">
+                <div class="card card-body">
+Large reasoning models achieve strong performance through test-time scaling but incur substantial computational overhead, particularly from excessive token generation when processing short input prompts. While sparse attention mechanisms can reduce latency and memory usage, existing approaches suffer from significant accuracy degradation due to accumulated errors during long-generation reasoning. These methods generally require either high token retention rates or expensive retraining. We introduce LessIsMore, a training-free sparse attention mechanism for reasoning tasks, which leverages global attention patterns rather than relying on traditional head-specific local optimizations. LessIsMore aggregates token selections from local attention heads with recent contextual information, enabling unified cross-head token ranking for future decoding layers. This unified selection improves generalization and efficiency by avoiding the need to maintain separate token subsets per head. Evaluation across diverse reasoning tasks and benchmarks shows that LessIsMore preserves -- and in some cases improves -- accuracy while achieving a 1.1× average decoding speed-up compared to full attention. Moreover, LessIsMore attends to 2× fewer tokens without accuracy loss, achieving a 1.13× end-to-end speed-up compared to existing sparse attention methods.
+                </div>
+              </div>
+            </li>
+
+
+
+            <li class="paper-item">
+              <h5>GPUs, CPUs, and... NICs: Rethinking the Network's Role in Serving Complex AI Pipelines</h5>
+              Mike Wong, Ulysses Butler, Emma Farkash, Praveen Tammana, Anirudh Sivaraman, Ravi Netravali <br>
+              arXiv 2025<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Compound AI Systems</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/abs/2502.15712" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#nics-abstract" role="button" aria-expanded="false" aria-controls="nics-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="nics-abstract">
+                <div class="card card-body">
+The increasing prominence of AI necessitates the deployment of inference platforms for efficient and effective management of AI pipelines and compute resources. As these pipelines grow in complexity, the demand for distributed serving rises and introduces much-dreaded network delays. In this paper, we investigate how the network can instead be a boon to the excessively high resource overheads of AI pipelines. To alleviate these overheads, we discuss how resource-intensive data processing tasks -- a key facet of growing AI pipeline complexity -- are well-matched for the computational characteristics of packet processing pipelines and how they can be offloaded onto SmartNICs. We explore the challenges and opportunities of offloading, and propose a research agenda for integrating network hardware into AI pipelines, unlocking new opportunities for optimization.
                 </div>
               </div>
             </li>
@@ -234,19 +277,124 @@
                 </div>
               </div>
             </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+          
+
+
+    <!-- 2026 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>2026</h3>
+          <ul>
             <li class="paper-item">
-              <h5>RAGServe: Fast Quality-Aware RAG Systems with Configuration Adaptation</h5> 
+              <h5>Remembrall: Leaning into Memory for Accurate Video Analytics on System-on-Chip GPUs</h5> 
+              Murali Ramanujam, Yinwei Dai, Kyle Jamieson, Ravi Netravali <br>
+              NSDI 2026 (to appear)<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#remembrall-abstract" role="button" aria-expanded="false" aria-controls="remembrall-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="remembrall-abstract">
+                <div class="card card-body">
+                  [Abstract content to be added]
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>2025</h3>
+          <ul>
+            <li class="paper-item">
+              <h5>SpecReason: Fast and Accurate Inference-Time Compute via Speculative Reasoning</h5>
+              Rui Pan, Yinwei Dai, Zhihao Zhang, Gabriele Oliaro, Zhihao Jia, Ravi Netravali <br>
+              NeurIPS 2025<br>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">Emerging Paradigms</span>
+              <div class="mt-2">
+                <a href="https://arxiv.org/abs/2504.07891" target="_blank">
+                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
+                </a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#specreason-neurips-abstract" role="button" aria-expanded="false" aria-controls="specreason-neurips-abstract">Abstract</a>
+                <a href="https://github.com/ruipeterpan/specreason" target="_blank"><button type="button" class="btn btn-outline-primary btn-sm">Code</button></a>
+              </div>
+              <div class="collapse" id="specreason-neurips-abstract">
+                <div class="card card-body">
+                  Recent advances in inference-time compute have significantly improved performance on complex tasks by 
+                  generating long chains of thought (CoTs) using Large Reasoning Models (LRMs). 
+                  However, this improved accuracy comes at the cost of high inference latency due to 
+                  the length of generated reasoning sequences and the autoregressive nature of decoding. 
+                  Our key insight in tackling these overheads is that LRM inference, and the reasoning that it embeds, 
+                  is highly tolerant of approximations: complex tasks are typically broken down into simpler steps, 
+                  each of which brings utility based on the semantic insight it provides for downstream steps 
+                  rather than the exact tokens it generates. Accordingly, we introduce SpecReason, a system that 
+                  automatically accelerates LRM inference by using a lightweight model to (speculatively) carry out 
+                  simpler intermediate reasoning steps and reserving the costly base model only to assess (and potentially correct) 
+                  the speculated outputs. Importantly, SpecReason's focus on exploiting the semantic flexibility of 
+                  thinking tokens in preserving final-answer accuracy is complementary to prior speculation techniques, 
+                  most notably speculative decoding, which demands token-level equivalence at each step. Across a variety 
+                  of reasoning benchmarks, SpecReason achieves 1.5-2.5× speedup over vanilla LRM inference while 
+                  improving accuracy by 1.0-9.9%. Compared to speculative decoding without SpecReason, 
+                  their combination yields an additional 19.4-44.2% latency reduction. 
+                  We open-source SpecReason at https://github.com/ruipeterpan/specreason.
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>Software Managed Networks via Coarsening</h5>
+              Pradeep Dogga, Rachee Singh, Suman Nath, Ravi Netravali, Jens Palsberg, George Varghese <br>
+              HotNets 2025<br>
+              <span class="badge badge-secondary">ML for Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#coarsening-abstract" role="button" aria-expanded="false" aria-controls="coarsening-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="coarsening-abstract">
+                <div class="card card-body">
+We propose moving from Software Defined Networks (SDN) to Software Managed Networks (SMN) where all information for managing the life cycle of a network (from deployment to operations to upgrades), across all layers (from Layer 1 through 7) is stored in a central repository. Crucially, a SMN also has a generalized control plane that, unlike SDN, controls all aspects of the cloud including traffic management (e.g., capacity planning) and reliability (e.g., incident routing) at both short (minutes) and large (years) time scales. Just as SDN allows better routing, a SMN improves visibility and enables cross-layer optimizations for faster response to failures and better network planning and operations. Implemented naively, SMN for planetary sc6ale networks requires orders of magnitude larger and more heterogeneous data (e.g., alerts, logs) than SDN. We address this using coarsening — mapping complex data to a more compact abstract representation that has approximately the same effect, and is more scalable, maintainable, and learnable. We show examples including Coarse Bandwidth Logs for capacity planning and Coarse Dependency Graphs for incident routing. Coarse Dependency Graphs improve an incident routing metric from 45% to 78% while for a distributed approach like Scouts the same metric was 22%. We end by discussing how to realize SMN, and suggest cross-layer optimizations and coarsenings for other operational and planning problems in networks.
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>Toward Bandwidth-adaptive Fully-Immersive Volumetric Video Conferencing</h5>
+              Rajrup Ghosh, Christina Suyong Shin, Lei Zhang, Muyang Ye, Tao Jin, Harsha V. Madhyastha, Ravi Netravali, Antonio Ortega, Sanjay Rao, Anthony Rowe, Ramesh Govindan <br>
+              CoNEXT 2025<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#volumetric-abstract" role="button" aria-expanded="false" aria-controls="volumetric-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="volumetric-abstract">
+                <div class="card card-body">
+Volumetric video allows users 6 degrees of freedom (6-DoF) in viewing continuously evolving scenes in 3D. Given broadband speeds today, volumetric video conferencing will soon be feasible. Even so, these scenes will need to be compressed, and compression will need to adapt to variations in bandwidth availability. Existing 3D compression techniques cannot adapt to bandwidth availability, are slow, and utilize bandwidth inefficiently, so they don't scale well to large scene descriptions. LiVo achieves low-latency and large-scene two-way conferencing by maximally leveraging existing 2D video infrastructure, including compression standards, rate-adaptive codecs, and real-time transport protocols. To achieve high quality, LiVo must carefully compose scenes from multiple cameras into multiple streams, encode scene geometry in a novel way, adapt to and apportion available bandwidth dynamically between streams to ensure high reconstruction quality, and cull content outside the receiver's field of view to reduce information sent into the network. These novel contributions enable LiVo to outperform the state-of-the-art by over 20% in objective quality. In a user study, LiVo achieves a mean opinion score of 4.1, while other approaches achieve significantly lower values.
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>RAGServe: Fast Quality-Aware RAG Systems with Configuration Adaptation</h5>
               Siddhant Ray, Rui Pan, Zhuohan Gu, Kuntai Du, Ganesh Ananthanarayanan, Ravi Netravali, Junchen Jiang <br>
-              arXiv 2024<br>
+              SOSP 2025<br>
               <span class="badge badge-secondary">Efficient Inference</span>
               <span class="badge badge-secondary">Compound AI Systems</span>
               <div class="mt-2">
                 <a href="https://arxiv.org/pdf/2412.10543" target="_blank">
                   <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#ragserve-abstract" role="button" aria-expanded="false" aria-controls="ragserve-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#ragserve-sosp-abstract" role="button" aria-expanded="false" aria-controls="ragserve-sosp-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="ragserve-abstract">
+              <div class="collapse" id="ragserve-sosp-abstract">
                 <div class="card card-body">
                   RAG (Retrieval Augmented Generation) allows LLMs (large language models) to 
                   generate better responses with external knowledge, but using more external 
@@ -264,122 +412,97 @@
                 </div>
               </div>
             </li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
-    <!-- 2025 -->
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <h3>2025</h3>
-          <ul>
             <li class="paper-item">
-              <h5>LinGen: Towards High-Resolution Minute-Length Text-to-Video Generation with Linear Computational Complexity</h5> 
-              Hongjie Wang, Chih-Yao Ma, Yen-Cheng Liu, Ji Hou, Tao Xu, Jialiang Wang, Felix Juefei-Xu, Yaqiao Luo, Peizhao Zhang, Tingbo Hou, Peter Vajda, Niraj K Jha, Xiaoliang Dai <br>
-              CVPR 2025<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
-              <span class="badge badge-secondary">Novel Model Architectures</span>
-              <div class="mt-2">
-                <a href="https://arxiv.org/pdf/2412.09856" target="_blank">
-                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
-                </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#lingen-abstract" role="button" aria-expanded="false" aria-controls="lingen-abstract">Abstract</a>
-                <a href="https://lineargen.github.io/" target="_blank">
-                  <button type="button" class="btn btn-outline-primary btn-sm">Website</button>
-                </a>
-              </div>
-              <div class="collapse" id="lingen-abstract">
-                <div class="card card-body">
-                  Text-to-video generation enhances content creation but
-                  is highly computationally intensive: The computational cost
-                  of Diffusion Transformers (DiTs) scales quadratically in the
-                  number of pixels. This makes minute-length video generation extremely expensive, limiting most existing models to
-                  generating videos of only 10-20 seconds length. We propose a Linear-complexity text-to-video Generation (LinGen) framework whose cost scales linearly in the number
-                  of pixels. For the first time, LinGen enables high-resolution
-                  minute-length video generation on a single GPU without
-                  compromising quality. It replaces the computationallydominant and quadratic-complexity block, self-attention,
-                  with a linear-complexity block called MATE, which consists of an MA-branch and a TE-branch. The MA-branch
-                  targets short-to-long-range correlations, combining a bidirectional Mamba2 block with our token rearrangement
-                  method, Rotary Major Scan, and our review tokens developed for long video generation. The TE-branch is a novel
-                  TEmporal Swin Attention block that focuses on temporal
-                  correlations between adjacent tokens and medium-range tokens. The MATE block addresses the adjacency preservation issue of Mamba and improves the consistency of generated videos significantly. Experimental results show that
-                  LinGen outperforms DiT (with a 75.6% win rate) in video
-                  quality with up to 15× (11.5×) FLOPs (latency) reduction.
-                  Furthermore, both automatic metrics and human evaluation
-                  demonstrate our LinGen-4B yields comparable video quality to state-of-the-art models (with a 50.5%, 52.1%, 49.1%
-                  win rate with respect to Gen-3, LumaLabs, and Kling, respectively). This paves the way to hour-length movie generation and real-time interactive video generation. We provide 68s video generation results and more examples in our
-                  project website: https://lineargen.github.io/.
-                </div>
-              </div>
-            </li>
-            <li class="paper-item">
-              <h5>Marconi: Prefix Caching for the Era of Hybrid LLMs</h5> 
-              Rui Pan, Zhuang Wang, Zhen Jia, Can Karakus, Luca Zancato, Tri Dao, Yida Wang, Ravi Netravali <br>
-              MLSys 2025<br>
-              <span class="badge badge-secondary">Efficient Inference</span>
-              <span class="badge badge-secondary">Sequence Modeling</span>
-              <span class="badge badge-secondary">State Space Models</span>
-              <div class="mt-2">
-                <a href="https://arxiv.org/pdf/2411.19379" target="_blank">
-                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
-                </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marconi-abstract" role="button" aria-expanded="false" aria-controls="marconi-abstract">Abstract</a>
-                <a href="https://github.com/ruipeterpan/marconi" target="_blank">
-                  <button type="button" class="btn btn-outline-primary btn-sm">Code</button>
-                </a>
-              </div>
-              <div class="collapse" id="marconi-abstract">
-                <div class="card card-body">
-                  Hybrid models that combine the language modeling capabilities of Attention layers with the efficiency of Recurrent
-                  layers (e.g., State Space Models) have gained traction in practically supporting long contexts in Large Language
-                  Model serving. Yet, the unique properties of these models complicate the usage of complementary efficiency
-                  optimizations such as prefix caching that skip redundant computations across requests. Most notably, their use of
-                  in-place state updates for recurrent layers precludes rolling back cache entries for partial sequence overlaps, and
-                  instead mandates only exact-match cache hits; the effect is a deluge of (large) cache entries per sequence, most
-                  of which yield minimal reuse opportunities. We present Marconi, the first system that supports efficient prefix
-                  caching with Hybrid LLMs. Key to Marconi are its novel admission and eviction policies that more judiciously
-                  assess potential cache entries based not only on recency, but also on (1) forecasts of their reuse likelihood across a
-                  taxonomy of different hit scenarios, and (2) the compute savings that hits deliver relative to memory footprints.
-                  Across diverse workloads and Hybrid models, Marconi achieves up to 34.4× higher token hit rates (71.1% or 617
-                  ms lower TTFT) compared to state-of-the-art prefix caching systems.
-                </div>
-              </div>
-            </li>
-            <li class="paper-item">
-              <h5>Mowgli: Passively Learned Rate Control for Real-Time Video</h5> 
-              Neil Agarwal, Rui Pan, Francis Y. Yan, Ravi Netravali <br>
-              NSDI 2025<br>
-              <span class="badge badge-secondary">ML for Systems</span>
+              <h5>Scalable Video Conferencing Using SDN Principles</h5>
+              Oliver Michel, Satadal Sengupta, Hyojoon Kim, Ravi Netravali, Jennifer Rexford <br>
+              SIGCOMM 2025<br>
               <span class="badge badge-secondary">Edge AI Systems</span>
               <div class="mt-2">
-                <a href="https://arxiv.org/pdf/2410.03339" target="_blank">
-                  <button type="button" class="btn btn-outline-primary btn-sm">PDF</button>
-                </a>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#mowgli-abstract" role="button" aria-expanded="false" aria-controls="mowgli-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="mowgli-abstract">
+              <div class="collapse" id="sdn-abstract">
                 <div class="card card-body">
-                  Rate control algorithms are at the heart of video conferencing platforms, 
-                  determining target bitrates that match dynamic network characteristics for high quality. 
-                  Recent data-driven strategies have shown promise for this challenging task, 
-                  but the performance degradation they introduce during training has been a nonstarter 
-                  for many production services, precluding adoption. 
-                  This paper aims to bolster the practicality of data-driven rate control by presenting 
-                  an alternative avenue for experiential learning: 
-                  leveraging purely existing telemetry logs produced by the incumbent algorithm in production. 
-                  We observe that these logs often contain effective decisions, although often at the wrong times or in the wrong order. 
-                  To realize this approach despite the inherent uncertainty that log-based learning brings 
-                  (i.e., lack of feedback for new decisions), our system, Mowgli, 
-                  combines a variety of robust learning techniques (i.e., conservatively reasoning 
-                  about alternate behavior to minimize risk and using a richer model formulation to account for environmental noise). 
-                  Across diverse networks (emulated and real-world), Mowgli outperforms the widely deployed GCC algorithm, 
-                  increasing average video bitrates by 15-39% while reducing freeze rates by 60-100%.
+Video-conferencing applications face an unwavering surge in traffic, stressing their underlying infrastructure in unprecedented ways. This paper rethinks the key building block for conferencing infrastructures -- selective forwarding units (SFUs). SFUs relay and adapt media streams between participants and, today, run in software on general-purpose servers. Our main insight, discerned from dissecting the operation of production SFU servers, is that SFUs largely mimic traditional packet-processing operations such as dropping and forwarding. Guided by this, we present Scallop, an SDN-inspired SFU that decouples video-conferencing applications into a hardware-based data plane for latency-sensitive and frequent media operations, and a software control plane for the (infrequent) remaining tasks, such as analyzing feedback signals. Our Tofino-based implementation fully supports WebRTC and delivers 7-210 times improved scaling over a 32-core commodity server, while reaping performance improvements by cutting forwarding-induced latency by 26 times.
                 </div>
               </div>
             </li>
-          </ul>
+
+
+
+
+            <li class="paper-item">
+              <h5>Hypervisors for Isolating Malicious AIs</h5>
+              James Mickens, Sarah Radway, Ravi Netravali <br>
+              HotOS 2025<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="sdn-abstract">
+                <div class="card card-body">
+As AI models become more embedded in critical sectors like finance, healthcare, and the military, their inscrutable behavior poses ever-greater risks to society. To mitigate this risk, we propose Guillotine, a hypervisor architecture for sandboxing powerful AI models -- models that, by accident or malice, can generate existential threats to humanity. Although Guillotine borrows some well-known virtualization techniques, Guillotine must also introduce fundamentally new isolation mechanisms to handle the unique threat model posed by existential-risk AIs. For example, a rogue AI may try to introspect upon hypervisor software or the underlying hardware substrate to enable later subversion of that control plane; thus, a Guillotine hypervisor requires careful co-design of the hypervisor software and the CPUs, RAM, NIC, and storage devices that support the hypervisor software, to thwart side channel leakage and more generally eliminate mechanisms for AI to exploit reflection-based vulnerabilities. Beyond such isolation at the software, network, and microarchitectural layers, a Guillotine hypervisor must also provide physical fail-safes more commonly associated with nuclear power plants, avionic platforms, and other types of mission critical systems. Physical fail-safes, e.g., involving electromechanical disconnection of network cables, or the flooding of a datacenter which holds a rogue AI, provide defense in depth if software, network, and microarchitectural isolation is compromised and a rogue AI must be temporarily shut down or permanently destroyed.
+
+                </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>Marconi: Prefix Caching for the Era of Hybrid LLMs</h5>
+              Rui Pan, Zhuang Wang, Zhen Jia, Can Karakus, Luca Zancato, Tri Dao, Yida Wang, Ravi Netravali <br>
+              MLSys 2025<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="sdn-abstract">
+                <div class="card card-body">
+Hybrid models that combine the language modeling capabilities of Attention layers with the efficiency of Recurrent layers (e.g., State Space Models) have gained traction in practically supporting long contexts in Large Language Model serving. Yet, the unique properties of these models complicate the usage of complementary efficiency optimizations such as prefix caching that skip redundant computations across requests. Most notably, their use of in-place state updates for recurrent layers precludes rolling back cache entries for partial sequence overlaps, and instead mandates only exact-match cache hits; the effect is a deluge of (large) cache entries per sequence, most of which yield minimal reuse opportunities. We present Marconi, the first system that supports efficient prefix caching with Hybrid LLMs. Key to Marconi are its novel admission and eviction policies that more judiciously assess potential cache entries based not only on recency, but also on (1) forecasts of their reuse likelihood across a taxonomy of different hit scenarios, and (2) the compute savings that hits deliver relative to memory footprints. Across diverse workloads and Hybrid models, Marconi achieves up to 34.4
+                </div>
+              </div>
+            </li>
+
+
+
+            <li class="paper-item">
+              <h5>Tarzan: Passively-Learned Real-Time Rate Control for Video Conferencing</h5>
+              Neil Agarwal, Rui Pan, Francis Yan, Ravi Netravali<br>
+              NSDI 2025<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="sdn-abstract">
+                <div class="card card-body">
+Rate control algorithms are at the heart of video conferencing platforms, determining target bitrates that match dynamic network characteristics for high quality. Recent data-driven strategies have shown promise for this challenging task, but the performance degradation they introduce during training has been a nonstarter for many production services, precluding adoption. This paper aims to bolster the practicality of data-driven rate control by presenting an alternative avenue for experiential learning: leveraging purely existing telemetry logs produced by the incumbent algorithm in production. We observe that these logs contain effective decisions, although often at the wrong times or in the wrong order. To realize this approach despite the inherent uncertainty that log-based learning brings (i.e., lack of feedback for new decisions), our system, Mowgli, combines a variety of robust learning techniques (i.e., conservatively reasoning about alternate behavior to minimize risk and using a richer model formulation to account for environmental noise). Across diverse networks (emulated and real-world), Mowgli outperforms the widely deployed GCC algorithm, increasing average video bitrates by 15-39% while reducing freeze rates by 60-100%.
+                </div>
+              </div>
+            </li>
+
+
+
+            <li class="paper-item">
+              <h5>Physical Visualization Design: Decoupling Interface and System Design</h5>
+              Yiru Chen, Xupeng Li, Jeff Tao, Lana Ramjit, Ravi Netravali, Subrata Mitra, Aditya Parameswaran, Javad Ghaderi, Dan Rubenstein, Eugene Wu<br>
+              SIGMOD 2025<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="sdn-abstract">
+                <div class="card card-body">
+Interactive visualization interfaces enable users to efficiently explore, analyze, and make sense of their datasets. However, as data grows in size, it becomes increasingly challenging to build data interfaces that meet the interface designer's desired latency expectations and resource constraints. Cloud DBMSs, while optimized for scalability, often fail to meet latency expectations, necessitating complex, bespoke query execution and optimization techniques for data interfaces. This involves manually navigating a huge optimization space that is sensitive to interface design and resource constraints, such as client vs server data and compute placement, choosing which computations are done offline vs online, and selecting from a large library of visualization-optimized data structures.
+This paper advocates for a Physical Visualization Design (PVD) tool that decouples interface design from system design to provide design independence. Given an interfaces underlying data flow, interactions with latency expectations, and resource constraints, PVD checks if the interface is feasible and, if so, proposes and instantiates a middleware architecture spanning the client, server, and cloud DBMS that meets the expectations.
+To this end, this paper presents Jade, the first prototype PVD tool that enables design independence. Jade proposes an intermediate representation called Diffplans to represent the data flows, develops cost estimation models that trade off between latency guarantees and plan feasibility, and implements an optimization framework to search for the middleware architecture that meets the guarantees. We evaluate Jade on six representative data interfaces as compared to Mosaic and Azure SQL database. We find Jade supports a wider range of interfaces, makes better use of available resources, and can meet a wider range of data, latency, and resource conditions.
+                </div>
+              </div>
+            </li>
+
+
+
+
+           </ul>
         </div>
       </div>
     </div>
