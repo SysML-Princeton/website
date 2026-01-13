@@ -316,6 +316,10 @@ The increasing prominence of AI necessitates the deployment of inference platfor
         <div class="col-sm-12">
           <h3>2025</h3>
           <ul>
+
+
+
+
             <li class="paper-item">
               <h5>SpecReason: Fast and Accurate Inference-Time Compute via Speculative Reasoning</h5>
               Rui Pan, Yinwei Dai, Zhihao Zhang, Gabriele Oliaro, Zhihao Jia, Ravi Netravali <br>
@@ -371,7 +375,7 @@ We propose moving from Software Defined Networks (SDN) to Software Managed Netwo
               <h5>Toward Bandwidth-adaptive Fully-Immersive Volumetric Video Conferencing</h5>
               Rajrup Ghosh, Christina Suyong Shin, Lei Zhang, Muyang Ye, Tao Jin, Harsha V. Madhyastha, Ravi Netravali, Antonio Ortega, Sanjay Rao, Anthony Rowe, Ramesh Govindan <br>
               CoNEXT 2025<br>
-              <span class="badge badge-secondary">Edge AI Systems</span>
+              <span class="badge badge-secondary">ML for systems</span>
               <div class="mt-2">
                 <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#volumetric-abstract" role="button" aria-expanded="false" aria-controls="volumetric-abstract">Abstract</a>
               </div>
@@ -413,15 +417,88 @@ Volumetric video allows users 6 degrees of freedom (6-DoF) in viewing continuous
               </div>
             </li>
 
+
+
+
+            <li class="paper-item">
+              <h5>Metadata Conditioning Accelerates Language Model Pre-training</h5>
+              Tianyu Gao, Alexander Wettig, Luxi He, Yihe Dong, Sadhika Malladi, Danqi Chen. <br>
+              ICML 2025<br>
+              <span class="badge badge-secondary">Efficient training</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#ladder-residual-abstract" role="button" aria-expanded="false" aria-controls="ladder-residual-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="ladder-residual-abstract">
+                <div class="card card-body">
+The vast diversity of styles, domains, and quality levels present in language model pre-training corpora is essential in developing general model capabilities, but efficiently learning and deploying the correct behaviors exemplified in each of these heterogeneous data sources is challenging. To address this, we propose a new method, termed Metadata Conditioning then Cooldown (MeCo), to incorporate additional learning cues during pre-training. MeCo first provides metadata (e.g., URLs like en.wikipedia.org) alongside the text during training and later uses a cooldown phase with only the standard text, thereby enabling the model to function normally even without metadata. MeCo significantly accelerates pre-training across different model scales (600M to 8B parameters) and training sources (C4, RefinedWeb, and DCLM). For instance, a 1.6B language model trained with MeCo matches the downstream task performance of standard pre-training while using 33% less data. Additionally, MeCo enables us to steer language models by conditioning the inference prompt on either real or fabricated metadata that encodes the desired properties of the output: for example, prepending wikipedia.org to reduce harmful generations or factquizmaster.com (fabricated) to improve common knowledge task performance. We also demonstrate that MeCo is compatible with different types of metadata, such as model-generated topics. MeCo is remarkably simple, adds no computational overhead, and demonstrates promise in producing more capable and steerable language models.
+
+
+                </div>
+              </div>
+            </li>
+
+
+
+            <li class="paper-item">
+              <h5>Ladder-residual: parallelism-aware architecture for accelerating large model inference with communication overlapping</h5>
+              Muru Zhang, Mayank Mishra, Zhongzhu Zhou, William Brandon, Jue Wang, Yoon Kim, Jonathan Ragan-Kelley, Shuaiwen Leon Song, Ben Athiwaratkun, Tri Dao <br>
+              ICML 2025<br>
+              <span class="badge badge-secondary">Edge AI Systems</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#ladder-residual-abstract" role="button" aria-expanded="false" aria-controls="ladder-residual-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="ladder-residual-abstract">
+                <div class="card card-body">
+Large language model inference is both memory-intensive and time-consuming, often requiring distributed algorithms to efficiently scale. Various model parallelism strategies are used in multi-gpu training and inference to partition computation across multiple devices, reducing memory load and computation time. However, using model parallelism necessitates communication of information between GPUs, which has been a major bottleneck and limits the gains obtained by scaling up the number of devices. We introduce Ladder Residual, a simple architectural modification applicable to all residual-based models that enables straightforward overlapping that effectively hides the latency of communication. Our insight is that in addition to systems optimization, one can also redesign the model architecture to decouple communication from computation. While Ladder Residual can allow communication-computation decoupling in conventional parallelism patterns, we focus on Tensor Parallelism in this paper, which is particularly bottlenecked by its heavy communication. For a Transformer model with 70B parameters, applying Ladder Residual to all its layers can achieve 29% end-to-end wall clock speed up at inference time with TP sharding over 8 devices. We refer the resulting Transformer model as the Ladder Transformer. We train a 1B and 3B Ladder Transformer from scratch and observe comparable performance to a standard dense transformer baseline. We also show that it is possible to convert parts of the Llama-3.1 8B model to our Ladder Residual architecture with minimal accuracy degradation by only retraining for 3B tokens. We release our code for training and inference for easier replication of experiments.
+
+                </div>
+              </div>
+            </li>
+
+            <li class="paper-item">
+              <h5>Long-context state-space video world models</h5>
+              Ryan Po, Yotam Nitzan, Richard Zhang, Berlin Chen, Tri Dao, Eli Shechtman, Gordon Wetzstein, Xun Huang <br>
+              ICCV 2025<br>
+              <span class="badge badge-secondary">Sequence Modeling</span>
+              <span class="badge badge-secondary">State Space Models</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#long-content-state-video-abstract" role="button" aria-expanded="false" aria-controls="long-context-state-video-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="long-context-state-video-abstract">
+                <div class="card card-body">
+Video diffusion models have recently shown promise for world modeling through autoregressive frame prediction conditioned on actions. However, they struggle to maintain long-term memory due to the high computational cost associated with processing extended sequences in attention layers. To overcome this limitation, we propose a novel architecture leveraging state-space models (SSMs) to extend temporal memory without compromising computational efficiency. Unlike previous approaches that retrofit SSMs for non-causal vision tasks, our method fully exploits the inherent advantages of SSMs in causal sequence modeling. Central to our design is a block-wise SSM scanning scheme, which strategically trades off spatial consistency for extended temporal memory, combined with dense local attention to ensure coherence between consecutive frames. We evaluate the long-term memory capabilities of our model through spatial retrieval and reasoning tasks over extended horizons. Experiments on Memory Maze and Minecraft datasets demonstrate that our approach surpasses baselines in preserving long-range memory, while maintaining practical inference speeds suitable for interactive applications.
+                </div>
+              </div>
+            </li>
+
+
+            <li class="paper-item">
+              <h5>Hardware-Efficient Attention for Fast Decoding</h5>
+              Ted Zadouri, Hubert Strauss, Tri Dao <br>
+              COLM 2025<br>
+              <span class="badge badge-secondary">Hardware Design for ML</span>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <div class="mt-2">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#hw-attn-fast-decode-abstract" role="button" aria-expanded="false" aria-controls="hw-attn-fast-decode-abstract">Abstract</a>
+              </div>
+              <div class="collapse" id="hw-attn-fast-decode-abstract">
+                <div class="card card-body">
+LLM decoding is bottlenecked for large batches and long contexts by loading the key-value (KV) cache from high-bandwidth memory, which inflates per-token latency, while the sequential nature of decoding limits parallelism. We analyze the interplay among arithmetic intensity, parallelization, and model quality and question whether current architectures fully exploit modern hardware. This work redesigns attention to perform more computation per byte loaded from memory to maximize hardware efficiency without trading off parallel scalability. We first propose Grouped-Tied Attention (GTA), a simple variant that combines and reuses key and value states, reducing memory transfers without compromising model quality. We then introduce Grouped Latent Attention (GLA), a parallel-friendly latent attention paired with low-level optimizations for fast decoding while maintaining high model quality. Experiments show that GTA matches Grouped-Query Attention (GQA) quality while using roughly half the KV cache and that GLA matches Multi-head Latent Attention (MLA) and is easier to shard. Our optimized GLA kernel is up to 2× faster than FlashMLA, for example, in a speculative decoding setting when the query length exceeds one. Furthermore, by fetching a smaller KV cache per device, GLA reduces end-to-end latency and increases throughput in online serving benchmarks by up to 2×.
+                </div>
+              </div>
+            </li>
+
+
             <li class="paper-item">
               <h5>Scalable Video Conferencing Using SDN Principles</h5>
               Oliver Michel, Satadal Sengupta, Hyojoon Kim, Ravi Netravali, Jennifer Rexford <br>
               SIGCOMM 2025<br>
-              <span class="badge badge-secondary">Edge AI Systems</span>
+              <span class="badge badge-secondary">Efficient Inference</span>
+              <span class="badge badge-secondary">ML for systems</span>
               <div class="mt-2">
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#scalable-video-sdn-abstract" role="button" aria-expanded="false" aria-controls="scalable-video-sdn-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="sdn-abstract">
+              <div class="collapse" id="scalable-video-sdn-abstract">
                 <div class="card card-body">
 Video-conferencing applications face an unwavering surge in traffic, stressing their underlying infrastructure in unprecedented ways. This paper rethinks the key building block for conferencing infrastructures -- selective forwarding units (SFUs). SFUs relay and adapt media streams between participants and, today, run in software on general-purpose servers. Our main insight, discerned from dissecting the operation of production SFU servers, is that SFUs largely mimic traditional packet-processing operations such as dropping and forwarding. Guided by this, we present Scallop, an SDN-inspired SFU that decouples video-conferencing applications into a hardware-based data plane for latency-sensitive and frequent media operations, and a software control plane for the (infrequent) remaining tasks, such as analyzing feedback signals. Our Tofino-based implementation fully supports WebRTC and delivers 7-210 times improved scaling over a 32-core commodity server, while reaping performance improvements by cutting forwarding-induced latency by 26 times.
                 </div>
@@ -435,11 +512,11 @@ Video-conferencing applications face an unwavering surge in traffic, stressing t
               <h5>Hypervisors for Isolating Malicious AIs</h5>
               James Mickens, Sarah Radway, Ravi Netravali <br>
               HotOS 2025<br>
-              <span class="badge badge-secondary">Edge AI Systems</span>
+              <span class="badge badge-secondary">Privacy and Security</span>
               <div class="mt-2">
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#hypervisors-abstract" role="button" aria-expanded="false" aria-controls="hypervisors-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="sdn-abstract">
+              <div class="collapse" id="hypervisors-abstract">
                 <div class="card card-body">
 As AI models become more embedded in critical sectors like finance, healthcare, and the military, their inscrutable behavior poses ever-greater risks to society. To mitigate this risk, we propose Guillotine, a hypervisor architecture for sandboxing powerful AI models -- models that, by accident or malice, can generate existential threats to humanity. Although Guillotine borrows some well-known virtualization techniques, Guillotine must also introduce fundamentally new isolation mechanisms to handle the unique threat model posed by existential-risk AIs. For example, a rogue AI may try to introspect upon hypervisor software or the underlying hardware substrate to enable later subversion of that control plane; thus, a Guillotine hypervisor requires careful co-design of the hypervisor software and the CPUs, RAM, NIC, and storage devices that support the hypervisor software, to thwart side channel leakage and more generally eliminate mechanisms for AI to exploit reflection-based vulnerabilities. Beyond such isolation at the software, network, and microarchitectural layers, a Guillotine hypervisor must also provide physical fail-safes more commonly associated with nuclear power plants, avionic platforms, and other types of mission critical systems. Physical fail-safes, e.g., involving electromechanical disconnection of network cables, or the flooding of a datacenter which holds a rogue AI, provide defense in depth if software, network, and microarchitectural isolation is compromised and a rogue AI must be temporarily shut down or permanently destroyed.
 
@@ -452,11 +529,11 @@ As AI models become more embedded in critical sectors like finance, healthcare, 
               <h5>Marconi: Prefix Caching for the Era of Hybrid LLMs</h5>
               Rui Pan, Zhuang Wang, Zhen Jia, Can Karakus, Luca Zancato, Tri Dao, Yida Wang, Ravi Netravali <br>
               MLSys 2025<br>
-              <span class="badge badge-secondary">Edge AI Systems</span>
+              <span class="badge badge-secondary">Efficient Inference</span>
               <div class="mt-2">
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#marconi-abstract" role="button" aria-expanded="false" aria-controls="marconi-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="sdn-abstract">
+              <div class="collapse" id="marconi-abstract">
                 <div class="card card-body">
 Hybrid models that combine the language modeling capabilities of Attention layers with the efficiency of Recurrent layers (e.g., State Space Models) have gained traction in practically supporting long contexts in Large Language Model serving. Yet, the unique properties of these models complicate the usage of complementary efficiency optimizations such as prefix caching that skip redundant computations across requests. Most notably, their use of in-place state updates for recurrent layers precludes rolling back cache entries for partial sequence overlaps, and instead mandates only exact-match cache hits; the effect is a deluge of (large) cache entries per sequence, most of which yield minimal reuse opportunities. We present Marconi, the first system that supports efficient prefix caching with Hybrid LLMs. Key to Marconi are its novel admission and eviction policies that more judiciously assess potential cache entries based not only on recency, but also on (1) forecasts of their reuse likelihood across a taxonomy of different hit scenarios, and (2) the compute savings that hits deliver relative to memory footprints. Across diverse workloads and Hybrid models, Marconi achieves up to 34.4
                 </div>
@@ -469,11 +546,12 @@ Hybrid models that combine the language modeling capabilities of Attention layer
               <h5>Tarzan: Passively-Learned Real-Time Rate Control for Video Conferencing</h5>
               Neil Agarwal, Rui Pan, Francis Yan, Ravi Netravali<br>
               NSDI 2025<br>
-              <span class="badge badge-secondary">Edge AI Systems</span>
+              <span class="badge badge-secondary">Novel ML Applications</span>
+              <span class="badge badge-secondary">ML for Systems</span>
               <div class="mt-2">
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#tarzan-abstract" role="button" aria-expanded="false" aria-controls="tarzan-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="sdn-abstract">
+              <div class="collapse" id="tarzan-abstract">
                 <div class="card card-body">
 Rate control algorithms are at the heart of video conferencing platforms, determining target bitrates that match dynamic network characteristics for high quality. Recent data-driven strategies have shown promise for this challenging task, but the performance degradation they introduce during training has been a nonstarter for many production services, precluding adoption. This paper aims to bolster the practicality of data-driven rate control by presenting an alternative avenue for experiential learning: leveraging purely existing telemetry logs produced by the incumbent algorithm in production. We observe that these logs contain effective decisions, although often at the wrong times or in the wrong order. To realize this approach despite the inherent uncertainty that log-based learning brings (i.e., lack of feedback for new decisions), our system, Mowgli, combines a variety of robust learning techniques (i.e., conservatively reasoning about alternate behavior to minimize risk and using a richer model formulation to account for environmental noise). Across diverse networks (emulated and real-world), Mowgli outperforms the widely deployed GCC algorithm, increasing average video bitrates by 15-39% while reducing freeze rates by 60-100%.
                 </div>
@@ -488,9 +566,9 @@ Rate control algorithms are at the heart of video conferencing platforms, determ
               SIGMOD 2025<br>
               <span class="badge badge-secondary">Edge AI Systems</span>
               <div class="mt-2">
-                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#sdn-abstract" role="button" aria-expanded="false" aria-controls="sdn-abstract">Abstract</a>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#physical-visual-abstract" role="button" aria-expanded="false" aria-controls="physical-visual-abstract">Abstract</a>
               </div>
-              <div class="collapse" id="sdn-abstract">
+              <div class="collapse" id="physical-visual-abstract">
                 <div class="card card-body">
 Interactive visualization interfaces enable users to efficiently explore, analyze, and make sense of their datasets. However, as data grows in size, it becomes increasingly challenging to build data interfaces that meet the interface designer's desired latency expectations and resource constraints. Cloud DBMSs, while optimized for scalability, often fail to meet latency expectations, necessitating complex, bespoke query execution and optimization techniques for data interfaces. This involves manually navigating a huge optimization space that is sensitive to interface design and resource constraints, such as client vs server data and compute placement, choosing which computations are done offline vs online, and selecting from a large library of visualization-optimized data structures.
 This paper advocates for a Physical Visualization Design (PVD) tool that decouples interface design from system design to provide design independence. Given an interfaces underlying data flow, interactions with latency expectations, and resource constraints, PVD checks if the interface is feasible and, if so, proposes and instantiates a middleware architecture spanning the client, server, and cloud DBMS that meets the expectations.
